@@ -2,10 +2,14 @@ import {StyleProp, ViewStyle} from 'react-native';
 import {SvgProps} from 'react-native-svg';
 
 import security from "./icons/security.svg";
+import eyeClosed from "./icons/eye-close.svg";
+import eyeOpen from "./icons/visible.svg"
 
 
 export const ICONS = {
     security,
+    "eye-closed": eyeClosed,
+    "eye-open": eyeOpen,
 };
 
 export type IconName = keyof typeof ICONS;
