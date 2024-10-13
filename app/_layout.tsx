@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import { Stack } from "expo-router";
+import { SafeAreaView, StatusBar } from 'react-native';
+import { FLEX } from '@/config/constants';
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    'Roboto-Bold': require('../assets/fonts/Roboto-Bold.ttf'),
-    'Roboto-Light': require('../assets/fonts/Roboto-Light.ttf'),
-    'Roboto-Medium': require('../assets/fonts/Roboto-Medium.ttf'),
-    'Roboto-Regular': require('../assets/fonts/Roboto-Regular.ttf'),
+    bold: require('../assets/fonts/Roboto-Bold.ttf'),
+    light: require('../assets/fonts/Roboto-Light.ttf'),
+    medium: require('../assets/fonts/Roboto-Medium.ttf'),
+    regular: require('../assets/fonts/Roboto-Regular.ttf'),
   });
 
   if (!loaded && !error) {
@@ -15,8 +16,15 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="(auth)/login" />
-    </Stack>
+    <SafeAreaView style={FLEX}>
+      <StatusBar barStyle="dark-content" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="(auth)" />
+      </Stack>
+    </SafeAreaView>
   );
 }
