@@ -3,13 +3,15 @@ import {SvgProps} from 'react-native-svg';
 
 import security from "./icons/security.svg";
 import eyeClosed from "./icons/eye-close.svg";
-import eyeOpen from "./icons/visible.svg"
+import eyeOpen from "./icons/visible.svg";
+import fingerPrint from "./icons/finger-print.svg";
 
 
 export const ICONS = {
     security,
     "eye-closed": eyeClosed,
     "eye-open": eyeOpen,
+    "finger-print": fingerPrint,
 };
 
 export type IconName = keyof typeof ICONS;
