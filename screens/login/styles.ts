@@ -26,5 +26,11 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         marginTop: pixelSizeVertical(126),
+    },
+    bottomSheetStyle: {
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: normalise(20),
+        paddingVertical: pixelSizeVertical(41),
     }
 })

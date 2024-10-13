@@ -1,3 +1,3 @@
-import LoginPage from "@/components/login/login";
+import LoginPage from "@/screens/login/login";
 
 export default () => <LoginPage />;

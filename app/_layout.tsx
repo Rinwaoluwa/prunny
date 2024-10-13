@@ -1,6 +1,8 @@
 import { useFonts } from 'expo-font';
 import { Stack } from "expo-router";
 import { SafeAreaView, StatusBar } from 'react-native';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { FLEX } from '@/config/constants';
 
 export default function RootLayout() {
@@ -18,13 +20,17 @@ export default function RootLayout() {
   return (
     <SafeAreaView style={FLEX}>
       <StatusBar barStyle="dark-content" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(auth)" />
-      </Stack>
+      <GestureHandlerRootView style={FLEX}>
+        <BottomSheetModalProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="(auth)" />
+          </Stack>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </SafeAreaView>
   );
 }
