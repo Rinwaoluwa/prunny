@@ -5,6 +5,9 @@ export const styles = StyleSheet.create({
     container: {
         marginHorizontal: pixelSizeHorizontal(20),
         marginTop: pixelSizeVertical(74),
+    },
+    textInputStyle: {
+        marginBottom: pixelSizeVertical(24),
     }, 
     linkStyle: {
         flexDirection: "row",
@@ -26,11 +29,12 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         marginTop: pixelSizeVertical(126),
+        marginBottom: pixelSizeVertical(48),
     },
     bottomSheetStyle: {
         alignItems: "center",
         justifyContent: "space-between",
         gap: normalise(20),
         paddingVertical: pixelSizeVertical(41),
-    }
+    },
 })
