@@ -5,13 +5,14 @@ import security from "./icons/security.svg";
 import eyeClosed from "./icons/eye-close.svg";
 import eyeOpen from "./icons/visible.svg";
 import fingerPrint from "./icons/finger-print.svg";
-
+import path from "./icons/path.svg"
 
 export const ICONS = {
     security,
     "eye-closed": eyeClosed,
     "eye-open": eyeOpen,
     "finger-print": fingerPrint,
+    path,
 };
 
 export type IconName = keyof typeof ICONS;

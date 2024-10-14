@@ -87,7 +87,7 @@ export default function LoginPage() {
                 onPressRigthtIcon={() => setHidePassword(!hidePassword)}
                 autoCapitalize="none"
             />
-            <Link href="/(auth)/register" asChild>
+            <Link href="/forgot-password" asChild>
                 <Pressable style={styles.linkStyle}>
                     <Icon name="security" size={normalise(14)} />
                     <AppText fontFamily="regular" color="primary--1">Forgot Password</AppText>
