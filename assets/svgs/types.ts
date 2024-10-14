@@ -7,6 +7,7 @@ import eyeOpen from "./icons/visible.svg";
 import fingerPrint from "./icons/finger-print.svg";
 import path from "./icons/path.svg";
 import mail from "./icons/mail.svg";
+import nigerianFlag from "./icons/nigerian-flag.svg"
 
 export const ICONS = {
     security,
@@ -15,6 +16,7 @@ export const ICONS = {
     "finger-print": fingerPrint,
     path,
     mail,
+    "nigerian-flag": nigerianFlag,
 };
 
 export type IconName = keyof typeof ICONS;

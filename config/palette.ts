@@ -1,7 +1,7 @@
 export const palette = {
     "primary--1": "#2D1145",
     "primary--2": "#C5A4E0",
-    "primary--3": "#2D11450F",
+    "primary--3": "#C378FF12",
     "primary--4": "#663191",
     "grey--1": "#F9F9F9",
     "grey--2": "#2D1145CC", // purple shade
