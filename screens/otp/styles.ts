@@ -3,7 +3,7 @@ import { normalise, pixelSizeVertical } from "@/config/normalise";
 
 export const styles = StyleSheet.create({
     container: {
-        marginTop: pixelSizeVertical(32),
+        // marginTop: pixelSizeVertical(32),
     },
     caption: {
         flexDirection: "row",

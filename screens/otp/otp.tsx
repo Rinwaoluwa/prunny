@@ -22,65 +22,63 @@ export default function OTP({ title, handleContinue }: { title: string, handleCo
 
     const handleSetOtpValue = (otp: string) => {
         setOtpValue(otp);
-        if(otp) {
+        if (otp) {
             handleContinue();
         }
     }
 
     return (
-        <View style={[styles.container, FLEX]}>
-            <View style={FLEX}>
+        <>
+            <AppText
+                fontSize={18}
+                color="primary--1"
+                fontFamily="bold"
+                style={{ marginBottom: pixelSizeVertical(58) }}
+            >
+                {title}
+            </AppText>
+            <View style={styles.caption}>
                 <AppText
-                    fontSize={18}
-                    color="primary--1"
-                    fontFamily="bold"
-                    style={{ marginBottom: pixelSizeVertical(58) }}
+                    fontSize={14}
+                    color="grey--2"
+                    fontFamily="regular"
                 >
-                    {title}
+                    Enter the 4 digit code
                 </AppText>
-                <View style={styles.caption}>
-
-                    <AppText
-                        fontSize={14}
-                        color="grey--2"
-                        fontFamily="regular"
-                    >
-                        Enter the 4 digit code
-                    </AppText>
-                    <AppText
-                        fontSize={14}
-                        color="grey--2"
-                        fontFamily="regular"
-                    >
-                        {timeLeft}
-                    </AppText>
-                </View>
-                <OtpInput length={4} onComplete={handleSetOtpValue} />
-                <Pressable
-                    onPress={() => {
-                        resend();
-                        reset();
-                        start(59);
-                    }}
-                    style={styles.resend}
+                <AppText
+                    fontSize={14}
+                    color="grey--2"
+                    fontFamily="regular"
                 >
-                    <Icon name="mail" />
-                    <AppText
-                        fontSize={14}
-                        color="primary--1"
-                        fontFamily="medium"
-                    >
-                        Resend SMS
-                    </AppText>
-                </Pressable>
+                    {timeLeft}
+                </AppText>
             </View>
-            <Button 
+            <OtpInput length={4} onComplete={handleSetOtpValue} />
+            <Pressable
+                onPress={() => {
+                    resend();
+                    reset();
+                    start(59);
+                }}
+                style={styles.resend}
+            >
+                <Icon name="mail" />
+                <AppText
+                    fontSize={14}
+                    color="primary--1"
+                    fontFamily="medium"
+                >
+                    Resend SMS
+                </AppText>
+            </Pressable>
+            <View style={FLEX} />
+            <Button
                 title="Continue"
                 backgroundColor="primary--4"
-                onPress={handleContinue} 
+                onPress={handleContinue}
                 disabled={Boolean(!otpValue)}
-                style={{marginBottom: pixelSizeHorizontal(44)}}
+                style={{ marginBottom: pixelSizeHorizontal(44) }}
             />
-        </View>
+        </>
     )
 }

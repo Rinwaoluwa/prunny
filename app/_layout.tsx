@@ -18,7 +18,7 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView style={FLEX}>
+    <>
       <StatusBar barStyle="dark-content" />
       <GestureHandlerRootView style={FLEX}>
         <BottomSheetModalProvider>
@@ -31,6 +31,6 @@ export default function RootLayout() {
           </Stack>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
-    </SafeAreaView>
+    </>
   );
 }

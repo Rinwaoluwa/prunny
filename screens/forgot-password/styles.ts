@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     },
     footer: {
         marginBottom: pixelSizeVertical(49),
+        justifyContent: "flex-end"
     },
     footerText: {
         flexDirection: "row",

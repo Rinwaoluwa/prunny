@@ -35,55 +35,53 @@ export default function CreatePassword({ handleContinue }: { handleContinue: () 
 
     return (
         <View style={FLEX}>
-            <View style={FLEX}>
-                <AppText
-                    fontSize={18}
-                    color="primary--1"
-                    fontFamily="bold"
-                    style={{ marginBottom: pixelSizeVertical(5) }}
-                >
-                    Create new password
-                </AppText>
-                <AppText
-                    fontSize={14}
-                    color="grey--2"
-                    fontFamily="regular"
-                    style={{ marginBottom: pixelSizeVertical(32) }}
-                >
-                    Your previous password shouldn’t be the same as this one. Choose a unique pasword
-                </AppText>
+            <AppText
+                fontSize={18}
+                color="primary--1"
+                fontFamily="bold"
+                style={{ marginBottom: pixelSizeVertical(5) }}
+            >
+                Create new password
+            </AppText>
+            <AppText
+                fontSize={14}
+                color="grey--2"
+                fontFamily="regular"
+                style={{ marginBottom: pixelSizeVertical(32) }}
+            >
+                Your previous password shouldn’t be the same as this one. Choose a unique pasword
+            </AppText>
 
-                <AppTextInput
-                    control={control}
-                    label="Password"
-                    placeholder="Choose Password"
-                    error={errors.password?.message}
-                    name="password"
-                    secureTextEntry={hidePassword}
-                    right={hidePassword ? "eye-closed" : "eye-open"}
-                    onPressRigthtIcon={() => setHidePassword(!hidePassword)}
-                    autoCapitalize="none"
-                />
-                {password && <PasswordStrengthIndicator password={password} />}
-                <AppTextInput
-                    control={control}
-                    label="Confrim Password"
-                    placeholder="Confirm Password"
-                    error={errors.confirmPassword?.message}
-                    name="confirmPassword"
-                    secureTextEntry={hideConfrimPassword}
-                    right={hideConfrimPassword ? "eye-closed" : "eye-open"}
-                    onPressRigthtIcon={() => setHideConfirmPassword(!hideConfrimPassword)}
-                    autoCapitalize="none"
-                />
-                <View style={FLEX} />
-                <Button
-                    title="Create password"
-                    backgroundColor="primary--4"
-                    style={{ marginBottom: pixelSizeVertical(44) }}
-                    disabled={disabled}
-                />
-            </View>
+            <AppTextInput
+                control={control}
+                label="Password"
+                placeholder="Choose Password"
+                error={errors.password?.message}
+                name="password"
+                secureTextEntry={hidePassword}
+                right={hidePassword ? "eye-closed" : "eye-open"}
+                onPressRigthtIcon={() => setHidePassword(!hidePassword)}
+                autoCapitalize="none"
+            />
+            {password && <PasswordStrengthIndicator password={password} />}
+            <AppTextInput
+                control={control}
+                label="Confrim Password"
+                placeholder="Confirm Password"
+                error={errors.confirmPassword?.message}
+                name="confirmPassword"
+                secureTextEntry={hideConfrimPassword}
+                right={hideConfrimPassword ? "eye-closed" : "eye-open"}
+                onPressRigthtIcon={() => setHideConfirmPassword(!hideConfrimPassword)}
+                autoCapitalize="none"
+            />
+            <View style={FLEX} />
+            <Button
+                title="Create password"
+                backgroundColor="primary--4"
+                style={{ marginBottom: pixelSizeVertical(44) }}
+                disabled={disabled}
+            />
         </View>
     )
 }

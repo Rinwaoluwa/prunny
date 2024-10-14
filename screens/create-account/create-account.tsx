@@ -14,7 +14,7 @@ export default function CreateAccount() {
     };
 
     return (
-        <View style={FLEX}>
+        <>
             <AppText
                 fontSize={18}
                 color="primary--1"
@@ -39,19 +39,19 @@ export default function CreateAccount() {
                     fontFamily="regular"
                 >
                     By adding your phone number, you agree to {" "}
-                <AppText
-                    fontSize={13}
-                    color="primary--1"
-                    fontFamily="bold"
-                >
-                    Prunny Terms & Conditions
-                </AppText>
+                    <AppText
+                        fontSize={13}
+                        color="primary--1"
+                        fontFamily="bold"
+                    >
+                        Prunny Terms & Conditions
+                    </AppText>
                 </AppText>
             </View>
             {/* White spacing view. */}
             <View style={FLEX}></View>
             <Button title='Continue' backgroundColor="primary--4" disabled={!phoneNumber} />
-        </View>
+        </>
     )
 }
 

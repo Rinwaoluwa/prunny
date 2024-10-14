@@ -8,7 +8,7 @@ import { AppTextInput } from "@/components/AppTextInput";
 import { Button } from "@/components/buttons/Button";
 import { FLEX } from "@/config/constants";
 
-export default function ForgotPassword({handleContinue}: {handleContinue: () => void}) {
+export default function ForgotPassword({ handleContinue }: { handleContinue: () => void }) {
     const {
         control,
         handleSubmit,
@@ -28,34 +28,33 @@ export default function ForgotPassword({handleContinue}: {handleContinue: () => 
 
     return (
         <>
-            <View style={FLEX}>
-                <AppText
-                    fontSize={18}
-                    color="primary--1"
-                    fontFamily="bold"
-                    style={{ marginBottom: pixelSizeVertical(12) }}
-                >
-                    Forgot Password
-                </AppText>
-                <AppText
-                    fontSize={14}
-                    color="grey--2"
-                    fontFamily="regular"
-                    style={{ marginBottom: pixelSizeVertical(29) }}
-                >
-                    Enter the phone number associated with your account to reset your password
-                </AppText>
+            <AppText
+                fontSize={18}
+                color="primary--1"
+                fontFamily="bold"
+                style={{ marginBottom: pixelSizeVertical(12) }}
+            >
+                Forgot Password
+            </AppText>
+            <AppText
+                fontSize={14}
+                color="grey--2"
+                fontFamily="regular"
+                style={{ marginBottom: pixelSizeVertical(29) }}
+            >
+                Enter the phone number associated with your account to reset your password
+            </AppText>
 
-                <AppTextInput
-                    control={control}
-                    label="Phone Number*"
-                    placeholder="Phone Number"
-                    error={errors.phoneNumber?.message}
-                    name="phoneNumber"
-                    textContentType="telephoneNumber"
-                    keyboardType="phone-pad"
-                />
-            </View>
+            <AppTextInput
+                control={control}
+                label="Phone Number*"
+                placeholder="Phone Number"
+                error={errors.phoneNumber?.message}
+                name="phoneNumber"
+                textContentType="telephoneNumber"
+                keyboardType="phone-pad"
+            />
+            <View style={FLEX} />
             <View style={styles.footer}>
                 <Button title='Continue' onPress={handleContinue} backgroundColor="primary--4" disabled={!disable} />
                 <View style={styles.footerText}>

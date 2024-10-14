@@ -4,7 +4,7 @@ import { FLEX } from "@/config/constants"
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise"
 import CreateAccount from "@/screens/create-account/create-account"
 import { useState } from "react"
-import { StyleSheet, View } from "react-native"
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 
 enum CreateAccountFLow {
     getStarted,
@@ -28,7 +28,11 @@ export default () => {
                 <BackButton onPress={() => handleGoBack(currentStep)} />
                 <ProgressBar progress={.2} />
             </View>
-            {renderCurrentScreen()}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={FLEX}>
+                    {renderCurrentScreen()}
+                </View>
+            </TouchableWithoutFeedback>
         </View>
     )
 };

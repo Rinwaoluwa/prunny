@@ -6,7 +6,7 @@ import ForgotPasswordPage from "@/screens/forgot-password/forgot-password";
 import OTP from "@/screens/otp/otp";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Keyboard, Pressable, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
 enum ForgotPasswordFlow {
     forgotPassword,
@@ -28,7 +28,7 @@ export default () => {
                 setCurrentStep(ForgotPasswordFlow.createPassword)
                 break;
             case ForgotPasswordFlow.createPassword:
-                () => {};
+                () => { };
                 break;
             default:
                 setCurrentStep(ForgotPasswordFlow.forgotPassword);
@@ -66,7 +66,11 @@ export default () => {
     return (
         <View style={[styles.container, FLEX]}>
             <BackButton onPress={() => handleGoBack(currentStep)} />
-            {renderCurrentScreen()}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={FLEX}>
+                    {renderCurrentScreen()}
+                </View>
+            </TouchableWithoutFeedback>
         </View>
     )
 };

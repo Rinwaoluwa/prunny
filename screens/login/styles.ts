@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
         alignItems: "center", 
         gap: normalise(8),
         marginTop: pixelSizeVertical(21),
+        width: pixelSizeHorizontal(137),
     },
     buttonsContainer: {
         flexDirection: "row",
