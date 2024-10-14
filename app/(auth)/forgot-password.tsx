@@ -1,6 +1,7 @@
 import { BackButton } from "@/components/buttons/BackButton";
 import { FLEX } from "@/config/constants";
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise";
+import CreatePassword from "@/screens/create-password/create-password";
 import ForgotPasswordPage from "@/screens/forgot-password/forgot-password";
 import OTP from "@/screens/otp/otp";
 import { useRouter } from "expo-router";
@@ -43,6 +44,7 @@ export default () => {
                 break;
             case ForgotPasswordFlow.createPassword:
                 setCurrentStep(ForgotPasswordFlow.OTP);
+                break;
             default:
                 setCurrentStep(ForgotPasswordFlow.forgotPassword);
         }
@@ -53,9 +55,9 @@ export default () => {
             case ForgotPasswordFlow.forgotPassword:
                 return <ForgotPasswordPage handleContinue={() => handleContinue(currentStep)} />
             case ForgotPasswordFlow.OTP:
-                return <OTP handleContinue={() => handleContinue(currentStep)} />
+                return <OTP title="Enter OTP sent to your phone number" handleContinue={() => handleContinue(currentStep)} />
             case ForgotPasswordFlow.createPassword:
-                () => {}
+                return <CreatePassword handleContinue={() => handleContinue(currentStep)} />
             default:
                 return <ForgotPasswordPage handleContinue={() => handleContinue(currentStep)} />
         }

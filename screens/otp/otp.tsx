@@ -10,7 +10,7 @@ import Icon from "@/assets/svgs/icons";
 import { useOtp } from "@/hooks/useFakeOtp";
 import { Button } from "@/components/buttons/Button";
 
-export default function OTP({ handleContinue }: { handleContinue: () => void }) {
+export default function OTP({ title, handleContinue }: { title: string, handleContinue: () => void }) {
 
     const { timeLeft, start, reset } = useCountdownTimer(60);
     const { otp, resend } = useOtp();
@@ -36,7 +36,7 @@ export default function OTP({ handleContinue }: { handleContinue: () => void }) 
                     fontFamily="bold"
                     style={{ marginBottom: pixelSizeVertical(58) }}
                 >
-                    Enter OTP sent to your phone number
+                    {title}
                 </AppText>
                 <View style={styles.caption}>
 
