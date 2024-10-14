@@ -1,17 +1,14 @@
 import { View } from "react-native";
 import { styles } from "./styles";
-import { BackButton } from "@/components/buttons/BackButton";
 import { AppText } from "@/components/AppText";
 import { pixelSizeVertical } from "@/config/normalise";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { useForm } from "react-hook-form";
 import { AppTextInput } from "@/components/AppTextInput";
 import { Button } from "@/components/buttons/Button";
 import { FLEX } from "@/config/constants";
 
-export default function ForgotPassword() {
-    const router = useRouter();
-
+export default function ForgotPassword({handleContinue}: {handleContinue: () => void}) {
     const {
         control,
         handleSubmit,
@@ -29,10 +26,8 @@ export default function ForgotPassword() {
     });
     const disable = watch("phoneNumber");
 
-    const handleBackButton = () => router.push("/");
     return (
-        <View style={[styles.container, FLEX]}>
-            <BackButton onPress={handleBackButton} />
+        <>
             <View style={FLEX}>
                 <AppText
                     fontSize={18}
@@ -62,7 +57,7 @@ export default function ForgotPassword() {
                 />
             </View>
             <View style={styles.footer}>
-                <Button title='Continue' backgroundColor="primary--4" disabled={!disable} />
+                <Button title='Continue' onPress={handleContinue} backgroundColor="primary--4" disabled={!disable} />
                 <View style={styles.footerText}>
                     <AppText fontFamily="regular" color="primary--1">I can remember the password?{" "}</AppText>
                     <Link href="/" asChild>
@@ -70,6 +65,6 @@ export default function ForgotPassword() {
                     </Link>
                 </View>
             </View>
-        </View>
+        </>
     )
 }
