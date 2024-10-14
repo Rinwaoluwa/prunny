@@ -96,7 +96,6 @@ export default function LoginPage() {
                         </Pressable>
                     </Link>
 
-
                     <View style={styles.buttonsContainer}>
                         <Button title='Log In' backgroundColor="primary--4" style={styles.loginButton} disabled={disable} />
                         <BiometricsButton disabled={!isBiometricSupported} onPress={expandBottomSheet} />
@@ -107,7 +106,7 @@ export default function LoginPage() {
 
                     <View style={styles.footer}>
                         <AppText fontFamily="regular" color="primary--1">I don’t have an account?{" "}</AppText>
-                        <Link href="/" asChild>
+                        <Link href="/register" asChild>
                             <AppText fontFamily="bold" color="primary--1">Create Account</AppText>
                         </Link>
                     </View>
