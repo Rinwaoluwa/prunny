@@ -10,7 +10,10 @@ import { AppTextInput } from "@/components/AppTextInput";
 import PasswordStrengthIndicator from "@/components/PasswordStrengthIndicator";
 import { Button } from "@/components/buttons/Button";
 
-export default function CreatePassword({ handleContinue }: { handleContinue: () => void }) {
+export default function CreatePassword(
+    { title, caption, handleContinue }: 
+    { title: string; caption: string; handleContinue: () => void }
+) {
     const [hidePassword, setHidePassword] = useState(true);
     const [hideConfrimPassword, setHideConfirmPassword] = useState(true);
 
@@ -41,7 +44,7 @@ export default function CreatePassword({ handleContinue }: { handleContinue: () 
                 fontFamily="bold"
                 style={{ marginBottom: pixelSizeVertical(5) }}
             >
-                Create new password
+                {title}
             </AppText>
             <AppText
                 fontSize={14}
@@ -49,7 +52,7 @@ export default function CreatePassword({ handleContinue }: { handleContinue: () 
                 fontFamily="regular"
                 style={{ marginBottom: pixelSizeVertical(32) }}
             >
-                Your previous password shouldn’t be the same as this one. Choose a unique pasword
+                {caption}
             </AppText>
 
             <AppTextInput

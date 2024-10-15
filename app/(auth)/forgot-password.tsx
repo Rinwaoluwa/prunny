@@ -57,7 +57,13 @@ export default () => {
             case ForgotPasswordFlow.OTP:
                 return <OTP title="Enter OTP sent to your phone number" handleContinue={() => handleContinue(currentStep)} />
             case ForgotPasswordFlow.createPassword:
-                return <CreatePassword handleContinue={() => handleContinue(currentStep)} />
+                return (
+                    <CreatePassword
+                        title="Create new password"
+                        caption="Your previous password shouldn’t be the same as this one. Choose a unique pasword"
+                        handleContinue={() => handleContinue(currentStep)}
+                    />
+                )
             default:
                 return <ForgotPasswordPage handleContinue={() => handleContinue(currentStep)} />
         }
