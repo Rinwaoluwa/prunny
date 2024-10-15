@@ -7,7 +7,7 @@ import PhoneNumberInput from "@/components/PhoneNumberInput"
 import { useState } from "react"
 import { Button } from "@/components/buttons/Button"
 
-export default function CreateAccount() {
+export default function CreateAccount({ handleContinue }: { handleContinue: () => void }) {
     const [phoneNumber, setPhoneNumber] = useState("");
     const handleInput = (enteredText: string) => {
         setPhoneNumber(enteredText)
@@ -50,7 +50,7 @@ export default function CreateAccount() {
             </View>
             {/* White spacing view. */}
             <View style={FLEX}></View>
-            <Button title='Continue' backgroundColor="primary--4" disabled={!phoneNumber} />
+            <Button title='Continue' backgroundColor="primary--4" onPress={handleContinue} disabled={!phoneNumber} />
         </>
     )
 }
