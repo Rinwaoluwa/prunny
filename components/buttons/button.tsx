@@ -28,7 +28,6 @@ export const Button = ({
     <TouchableOpacity onPress={onPress} disabled={disabled || loading}>
       <View
         style={[
-          style,
           !!backgroundColor ? {backgroundColor: palette[backgroundColor]} : {},
           {
             backgroundColor: palette[backgroundColor],
@@ -40,7 +39,8 @@ export const Button = ({
             alignSelf,
             paddingHorizontal: alignSelf ? pixelSizeHorizontal(paddingHorizontal) : 0,
             paddingVertical: alignSelf ? pixelSizeVertical(8) : pixelSizeVertical(paddingVertical),
-          }
+          },
+          style,
         ]}
         {...props}>
         {loading ? (
