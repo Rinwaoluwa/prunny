@@ -6,6 +6,7 @@ export const palette = {
     "grey--1": "#F9F9F9",
     "grey--2": "#2D1145CC", // purple shade
     "grey--3": "#EDEFF2",
+    "grey--4": "#2D11450F",
     red: "#EB5757",
     yellow: "#FDB713",
     "green--1": "#6CEDA2",

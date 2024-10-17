@@ -55,7 +55,7 @@ export const AppTextInput = ({
                             { flexDirection: "row", justifyContent: "space-between", alignItems: "center" } : {},
                         {
                             borderColor: error ? palette['red'] :
-                                focused ? palette['primary--2'] : palette['primary--3'],
+                                focused || value ? palette['primary--2'] : palette['grey--4'],
                             borderWidth: normalise(1),
                             borderRadius: normalise(5),
                             paddingHorizontal: pixelSizeHorizontal(24),
@@ -86,7 +86,7 @@ export const AppTextInput = ({
                                     paddingVertical: pixelSizeVertical(15),
                                     fontFamily: "medium",
                                     fontSize: fontPixel(14),
-                                    color: '#2D114580',
+                                    color: palette['primary--1'],
                                 }
 
                             ]}
