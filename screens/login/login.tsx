@@ -6,7 +6,7 @@ import { normalise, pixelSizeHorizontal, pixelSizeVertical } from "@/config/norm
 import { AppTextInput } from "@/components/AppTextInput";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import Icon from "@/assets/svgs/icons";
 import { Button } from "../../components/buttons/Button";
 import { BiometricsButton } from "../../components/buttons/BiometricsButton";
@@ -19,6 +19,7 @@ export default function LoginPage() {
     const sheetRef = useRef<null | BottomSheetModal>(null);
     const [hidePassword, setHidePassword] = useState(true);
     const { isBiometricSupported, handleBiometricsAuthentication } = useBiometrics();
+    const router = useRouter();
 
     const {
         control,
@@ -97,7 +98,7 @@ export default function LoginPage() {
                     </Link>
 
                     <View style={styles.buttonsContainer}>
-                        <Button title='Log In' backgroundColor="primary--4" style={styles.loginButton} disabled={disable} />
+                        <Button title='Log In' onPress={() => router.replace("/(tabs)/")} backgroundColor="primary--4" style={styles.loginButton} disabled={disable} />
                         <BiometricsButton disabled={!isBiometricSupported} onPress={expandBottomSheet} />
                     </View>
                     

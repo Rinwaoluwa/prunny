@@ -27,7 +27,10 @@ export default function RootLayout() {
               headerShown: false,
             }}
           >
-            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="index" />
+            <Stack.Screen name="forgot-password" />
+            <Stack.Screen name="register" />
+            <Stack.Screen name="(tabs)" />
           </Stack>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
