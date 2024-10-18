@@ -7,7 +7,27 @@ import eyeOpen from "./icons/visible.svg";
 import fingerPrint from "./icons/finger-print.svg";
 import path from "./icons/path.svg";
 import mail from "./icons/mail.svg";
-import nigerianFlag from "./icons/nigerian-flag.svg"
+import nigerianFlag from "./icons/nigerian-flag.svg";
+import fund from "./icons/fund.svg";
+import add from "./icons/add.svg";
+import cardLines from "./icons/card-lines.svg";
+import checkmarkFilled from "./icons/checkmark-filled.svg";
+import close from "./icons/close-filled.svg";
+import creditCard from "./icons/credit-card.svg";
+import dialer from "./icons/dialer.svg";
+import wallet from "./icons/wallet.svg";
+import request from "./icons/request.svg";
+import profile from "./icons/profile.svg";
+import transactionSuccessful from "./icons/transaction-successful.svg";
+import mastercard from "./icons/mastercard.svg";
+import home from "./icons/home.svg";
+import pieChart from "./icons/pie-chart.svg";
+import services from "./icons/services.svg";
+import temple from "./icons/temple.svg";
+import share from "./icons/share.svg";
+import mobilePhone from "./icons/mobile-phone.svg";
+import notificationBell from "./icons/notification-bell.svg";
+import prunnyLogo3 from "./icons/prunny-logo-3.svg";
 
 export const ICONS = {
     security,
@@ -17,6 +37,26 @@ export const ICONS = {
     path,
     mail,
     "nigerian-flag": nigerianFlag,
+    fund, 
+    "card-lines": cardLines,
+    "checkmark": checkmarkFilled,
+    close,
+    "credit-card": creditCard,
+    dialer,
+    wallet,
+    request,
+    profile,
+    "transaction-successful": transactionSuccessful,
+    mastercard,
+    home,
+    "pie-chart": pieChart,
+    services,
+    temple,
+    share,
+    "mobile": mobilePhone,
+    "notification-bell": notificationBell,
+    "prunny-logo-3": prunnyLogo3,
+    add,
 };
 
 export type IconName = keyof typeof ICONS;
