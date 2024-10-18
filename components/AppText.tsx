@@ -11,21 +11,23 @@ interface AppTextStyle extends TextProps {
     children: ReactNode;
 }
 
-export function AppText({ fontSize = 14, fontFamily, color, style, children, ...props }: AppTextStyle) {
-
-    return (
+export const AppText = forwardRef<Text, AppTextStyle>(
+    ({ fontSize = 14, fontFamily, color, style, children, ...props }, ref) => {
+      return (
         <Text
-            style={[
-                {
-                    fontSize: fontPixel(fontSize as number),
-                    fontFamily: fontFamily,
-                    color: color ? palette[color] : palette['black'],
-                },
-                style
-            ]}
-            {...props}
+          ref={ref} // Attach ref here
+          style={[
+            {
+              fontSize: fontPixel(fontSize as number),
+              fontFamily: fontFamily,
+              color: color ? palette[color] : palette['black'],
+            },
+            style,
+          ]}
+          {...props}
         >
-            {children}
+          {children}
         </Text>
-    )
-}
+      );
+    }
+  );
