@@ -28,6 +28,9 @@ import share from "./icons/share.svg";
 import mobilePhone from "./icons/mobile-phone.svg";
 import notificationBell from "./icons/notification-bell.svg";
 import prunnyLogo3 from "./icons/prunny-logo-3.svg";
+import addNewWallet from "./icons/add-new-wallet.svg";
+import visible from "./icons/visible-1.svg";
+import hidden from "./icons/hidden-1.svg";
 
 export const ICONS = {
     security,
@@ -57,6 +60,9 @@ export const ICONS = {
     "notification-bell": notificationBell,
     "prunny-logo-3": prunnyLogo3,
     add,
+    "add-new-wallet": addNewWallet,
+    visible,
+    hidden,
 };
 
 export type IconName = keyof typeof ICONS;

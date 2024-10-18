@@ -1,7 +1,7 @@
-import { Text } from "react-native";
+import Dashboard from "@/screens/dashboard/dashboard";
 
 export default function Index() {
     return (
-        <Text style={{justifyContent: "center", alignItems: "center", fontSize: 300}}>Hello!</Text>
+        <Dashboard />
     )
 }

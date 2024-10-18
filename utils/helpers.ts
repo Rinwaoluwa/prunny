@@ -6,3 +6,11 @@ export const formatDate = (date: Date) => {
     let year = date.getFullYear();
     return `${day} - ${month} - ${year}`;
 };
+
+
+export const convertToStars = (value: number | string): string => {
+    const valueString = value.toString();
+    const stars = '*'.repeat(valueString.length);
+    
+    return stars;
+};
