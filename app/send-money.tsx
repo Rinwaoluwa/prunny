@@ -122,6 +122,6 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     buttonContainer: {
-        marginTop: pixelSizeVertical(20)
+        marginTop: pixelSizeVertical(30)
     }
 })

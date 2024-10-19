@@ -1,4 +1,4 @@
-import { View, ImageBackground, ScrollView, StyleSheet } from "react-native";
+import { View, ImageBackground, ScrollView, StyleSheet, Platform } from "react-native";
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise";
 import { palette } from "@/config/palette";
 import { FLEX } from "@/config/constants";
@@ -13,6 +13,7 @@ export function Banner() {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.bannerSection}
+                style={styles.scrollViewStyle}
             >
                 <View style={styles.banner}>
                     <ImageBackground source={require("../assets/images/banner.jpg")} style={[FLEX, styles.background]}>
@@ -33,7 +34,6 @@ export function Banner() {
 export const styles = StyleSheet.create({
     bannerSection: {
         paddingLeft: pixelSizeVertical(21),
-        backgroundColor: palette['white'],
         gap: pixelSizeVertical(24),
         width: "100%",
         position: "relative",
@@ -47,6 +47,9 @@ export const styles = StyleSheet.create({
     },
     background: {
         paddingHorizontal: pixelSizeHorizontal(20),
-        paddingTop: pixelSizeVertical(40),
+        paddingTop: Platform.OS === "android" ? pixelSizeVertical(40) : pixelSizeVertical(15),
+    },
+    scrollViewStyle: {
+        backgroundColor: palette['white'],
     }
 })

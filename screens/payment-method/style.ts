@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     },
     cardContainer: {
         paddingLeft: pixelSizeHorizontal(20),
-        paddingVertical: pixelSizeVertical(33),
+        paddingVertical: pixelSizeVertical(40),
         alignItems: "center",
     },
     scrollView: {

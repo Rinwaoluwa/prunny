@@ -20,7 +20,7 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <GestureHandlerRootView style={FLEX}>
         <BottomSheetModalProvider>
           <Stack

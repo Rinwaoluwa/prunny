@@ -1,10 +1,10 @@
 import { normalise, pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise";
 import { palette } from "@/config/palette";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        paddingVertical: pixelSizeVertical(30),
+        paddingVertical: Platform.OS === "android" ? pixelSizeVertical(30) : pixelSizeVertical(35),
         paddingHorizontal: pixelSizeVertical(20),
         backgroundColor: palette['primary--4'],
     },
