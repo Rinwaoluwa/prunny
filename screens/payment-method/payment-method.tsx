@@ -8,6 +8,7 @@ import { WalletCard } from "@/components/WalletCard";
 import { Button } from "@/components/buttons/Button";
 import { CreditCard } from "@/components/CreditCard";
 import AddNewCard from "@/components/AddNewCard";
+import { AccountDetails } from "@/components/AccountDetails";
 
 export default function PaymentMethod() {
     const [paymentMode, setPaymentMode] = useState('wallet');
@@ -17,21 +18,7 @@ export default function PaymentMethod() {
         <>
             <View style={styles.container}>
 
-                <View style={styles.accountCard}>
-                    <View style={styles.userCircle}>
-                        <AppText
-                            fontSize={18}
-                            color="white"
-                            fontFamily="bold"
-                        >
-                            P
-                        </AppText>
-                    </View>
-                    <View style={styles.accountDetails}>
-                        <AppText color="primary--1" fontFamily="bold">Account Name</AppText>
-                        <AppText color="primary--1" fontFamily="regular">Account number (Bank)</AppText>
-                    </View>
-                </View>
+                <AccountDetails />
                 <AppText
                     color="primary--1"
                     fontSize={16}
