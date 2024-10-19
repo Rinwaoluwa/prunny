@@ -3,7 +3,6 @@ import { heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical, widthPi
 import { palette } from "@/config/palette"
 import { Pressable, StyleSheet, View } from "react-native"
 import { AppText } from "./AppText"
-import { useState } from "react"
 
 interface Props {
     onPress: () => void;

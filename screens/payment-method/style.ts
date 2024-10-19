@@ -1,4 +1,4 @@
-import { heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from "@/config/normalise";
+import { fontPixel, heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from "@/config/normalise";
 import { palette } from "@/config/palette";
 import { StyleSheet } from "react-native";
 
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     paymentOptions: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 30,
+        marginBottom: pixelSizeVertical(30),
     },
     paymentButton: {
         flexDirection: 'row',
@@ -40,9 +40,9 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'transparent',
         padding: normalise(20),
-        borderRadius: 8,
+        borderRadius: normalise(8),
         flex: 1,
-        marginHorizontal: 5,
+        marginHorizontal: pixelSizeHorizontal(5),
         borderWidth: normalise(.8),
         borderColor: palette['primary--2']
     },
@@ -52,36 +52,39 @@ export const styles = StyleSheet.create({
         borderColor: palette['primary--2'],
     },
     paymentButtonText: {
-        fontSize: 14,
+        fontSize: fontPixel(14),
         color: '#6E33FF',
-        marginLeft: 8,
+        marginLeft: pixelSizeHorizontal(8),
     },
     balanceCard: {
         position: "relative",
         backgroundColor: palette['primary--1'],
-        padding: 20,
-        borderRadius: 10,
-        marginBottom: 50,
+        padding: normalise(20),
+        borderRadius: normalise(10),
+        marginBottom: pixelSizeVertical(50),
         width: widthPixel(265.41),
         height: heightPixel(155.62),
     },
     balanceText: {
-        fontSize: 14,
-        color: '#FFFFFF',
+        fontSize: fontPixel(14),
+        color: palette['white'],
     },
     amountText: {
-        fontSize: 24,
-        color: '#FFFFFF',
+        fontSize: fontPixel(24),
+        color: palette['white'],
         fontWeight: 'bold',
     },
     continueButton: {
-        paddingVertical: 15,
-        borderRadius: 8,
+        paddingVertical: pixelSizeVertical(15),
+        borderRadius: normalise(8),
     },
     cardContainer: {
-        backgroundColor: palette['primary--3'],
         paddingLeft: pixelSizeHorizontal(20),
         paddingVertical: pixelSizeVertical(33),
         alignItems: "center",
     },
+    scrollView: {
+        width: "100%",
+        backgroundColor: palette['primary--3'],
+    }
 })

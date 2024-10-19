@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react"
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import OTP from "@/screens/otp/otp";
 import { normalise, pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise";
 import { palette } from "@/config/palette";
@@ -98,7 +98,9 @@ export default function SendMoney() {
                 <View />
             </View>
             <View style={FLEX}>
-                {renderCurrentScreen()}
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    {renderCurrentScreen()}
+                </TouchableWithoutFeedback>
             </View>
         </>
     )
