@@ -2,30 +2,33 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather, Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { AppText } from './AppText';
-import { normalise, pixelSizeVertical } from '@/config/normalise';
+import { heightPixel, normalise, pixelSizeVertical, widthPixel } from '@/config/normalise';
 import { palette } from '@/config/palette';
 import { IconName } from '@/assets/svgs/types';
 import Icon from '@/assets/svgs/icons';
+import { Href, Link } from 'expo-router';
 
 interface PayActionProps {
-    onPress: () => void;
     iconName: IconName;
     title: string;
+    href: Href<string | object>;
 }
 
-const PayActions: React.FC<PayActionProps> = ({ iconName, title, onPress }) => {
+const PayActions: React.FC<PayActionProps> = ({ iconName, title, href }) => {
     return (
-        <TouchableOpacity style={styles.action} onPress={onPress}>
-            <Icon name={iconName} size={24} />
-            <Text style={styles.actionText}>{title}</Text>
-        </TouchableOpacity>
+        <Link href={href} asChild>
+            <TouchableOpacity style={styles.action}>
+                <Icon name={iconName} size={normalise(24)} />
+                <AppText color='black' fontFamily='regular' style={styles.actionText}>{title}</AppText>
+            </TouchableOpacity>
+        </Link>
     );
 };
 
 const styles = StyleSheet.create({
     action: {
         width: '48%',
-        height: pixelSizeVertical(60),
+        height: heightPixel(60),
         backgroundColor: palette['white'],
         borderRadius: normalise(8),
         padding: pixelSizeVertical(18),
@@ -42,15 +45,14 @@ const styles = StyleSheet.create({
         gap: normalise(11),
     },
     iconContainer: {
-        width: 48,
-        height: 48,
-        borderRadius: 24,
+        width: widthPixel(48),
+        height: heightPixel(48),
+        borderRadius: normalise(24),
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: pixelSizeVertical(8),
     },
     actionText: {
-        fontSize: 14,
         textAlign: 'center',
     },
 });

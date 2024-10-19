@@ -9,9 +9,17 @@ import { AppText } from '@/components/AppText';
 import { PAY_ACTIONS, PAY_ACTIONS_TYPE } from '@/config/constants';
 import { IconName } from '@/assets/svgs/types';
 import { Banner } from '@/components/Banner';
+import { Href } from 'expo-router';
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState(0);
+
+    const CONTROL = [
+        "/send-money",
+        "",
+        "",
+        "",
+    ]
 
     const handleScroll = (event: any) => {
         const scrollX = event.nativeEvent.contentOffset.x;
@@ -39,7 +47,7 @@ export default function Dashboard() {
                 <AppText fontFamily='bold' fontSize={16} color='black' style={styles.title}>Pay Actions</AppText>
                 <View style={styles.grid}>
                     {PAY_ACTIONS.map((action, index) => (
-                        <PayActions key={index} iconName={action.icon as IconName} title={action.title} />
+                        <PayActions key={index} iconName={action.icon as IconName} title={action.title} href={CONTROL[index] as Href<string | object>} />
                     ))}
                 </View>
             </View>

@@ -4,6 +4,7 @@ import { SafeAreaView, StatusBar } from 'react-native';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { FLEX } from '@/config/constants';
+import { BackButton } from '@/components/buttons/BackButton';
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -31,6 +32,7 @@ export default function RootLayout() {
             <Stack.Screen name="forgot-password" />
             <Stack.Screen name="register" />
             <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="send-money" />
           </Stack>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
