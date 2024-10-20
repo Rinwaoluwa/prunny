@@ -43,16 +43,15 @@ const styles = StyleSheet.create({
         backgroundColor: palette['primary--4'],
         borderRadius: normalise(10),
         marginBottom: pixelSizeVertical(10),
-        width: widthPixel(280.56),
-        height: heightPixel(190),
         marginRight: pixelSizeHorizontal(14.8),
     },
     cardContent: {
         position: "relative",
-        width: "100%",
         overflow: "hidden",
         paddingVertical: pixelSizeVertical(30),
         paddingHorizontal: pixelSizeHorizontal(26),
+        width: widthPixel(280.56),
+        height: heightPixel(190),
     },
     selectedCard: {
         position: "absolute",

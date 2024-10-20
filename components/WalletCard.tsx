@@ -33,16 +33,14 @@ const styles = StyleSheet.create({
         backgroundColor: palette['primary--1'],
         borderRadius: normalise(10),
         marginBottom: pixelSizeVertical(10),
-        width: widthPixel(265.41),
-        height: heightPixel(155.62),
         marginRight: pixelSizeHorizontal(10),
     },
     cardContent: {
-        position: "relative",
-        width: "100%",
-        overflow: "hidden",
         paddingVertical: pixelSizeVertical(30),
         paddingHorizontal: pixelSizeHorizontal(26),
+        overflow: "hidden",
+        width: widthPixel(265.41),
+        height: heightPixel(155.62),
     },
     selectedCard: {
         position: "absolute",
@@ -60,10 +58,10 @@ const styles = StyleSheet.create({
     topRight: {
         top: pixelSizeVertical(-130),
         right: pixelSizeHorizontal(-100),
-        transform: [{ rotate: "-3600deg" }]
+        transform: [{ rotate: "-360deg" }]
     },
     bottomLeft: {
-        bottom: pixelSizeVertical(-100),
+        bottom: pixelSizeVertical(-130),
         left: pixelSizeHorizontal(-100),
-    }
+    },
 })
