@@ -33,6 +33,7 @@ export default function RootLayout() {
             <Stack.Screen name="register" />
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="send-money" />
+            <Stack.Screen name="airtime-data" />
             <Stack.Screen name="transaction-successful" />
           </Stack>
         </BottomSheetModalProvider>

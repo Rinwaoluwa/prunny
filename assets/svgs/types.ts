@@ -32,6 +32,10 @@ import addNewWallet from "./icons/add-new-wallet.svg";
 import visible from "./icons/visible-1.svg";
 import hidden from "./icons/hidden-1.svg";
 import nairaSign from "./icons/naira-sign.svg";
+import airtel from "./icons/airtel.svg";
+import mtn from "./icons/mtn.svg";
+import glo from "./icons/globacom.svg";
+import nineMobile from "./icons/9mobile.svg";
 
 export const ICONS = {
     security,
@@ -65,6 +69,10 @@ export const ICONS = {
     visible,
     hidden,
     "naira-sign": nairaSign,
+    airtel,
+    mtn,
+    glo,
+    "9-mobile": nineMobile,
 };
 
 export type IconName = keyof typeof ICONS;

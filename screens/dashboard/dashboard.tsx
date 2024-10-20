@@ -16,7 +16,7 @@ export default function Dashboard() {
 
     const CONTROL = [
         "/send-money",
-        "",
+        "/airtime-data",
         "",
         "",
     ]

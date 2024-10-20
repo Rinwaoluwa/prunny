@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react"
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import OTP from "@/screens/otp/otp";
-import { normalise, pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise";
+import { heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from "@/config/normalise";
 import { palette } from "@/config/palette";
 import { AppText } from "@/components/AppText";
 import { BackButton } from "@/components/buttons/BackButton";
@@ -123,15 +123,17 @@ export default function SendMoney() {
                 <View style={styles.buttonContainer}>
                     <BackButton onPress={handleGoBack} />
                 </View>
-                <AppText fontFamily="bold" fontSize={18} color="primary--1">Send Money</AppText>
+                <View style={styles.titleContainer}>
+                    <AppText fontFamily="bold" fontSize={18} color="primary--1">Send Money</AppText>
+                </View>
                 {/* Add empty view to center Send Money Text */}
-                <View />
+                <View style={styles.emptyView} />
             </View>
-            <View style={FLEX}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={FLEX}>
                     {renderCurrentScreen()}
-                </TouchableWithoutFeedback>
-            </View>
+                </View>
+            </TouchableWithoutFeedback>
         </>
     )
 }
@@ -149,7 +151,8 @@ export const styles = StyleSheet.create({
         marginBottom: pixelSizeVertical(5),
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        height: heightPixel(90)
     },
     buttonContainer: {
         marginTop: pixelSizeVertical(30),
@@ -158,5 +161,12 @@ export const styles = StyleSheet.create({
         paddingVertical: pixelSizeVertical(37),
         paddingHorizontal: pixelSizeHorizontal(20),
         backgroundColor: palette['white'],
+    },
+    titleContainer: {
+        flexGrow: 1,
+        alignItems: "center",
+    },
+    emptyView: {
+        width: widthPixel(42),
     },
 })

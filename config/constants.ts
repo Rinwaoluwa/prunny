@@ -27,3 +27,12 @@ export const TRANSACTION_SUMMARY = {
     description: "Brief description here",
     amount: "N10,950",
 }
+
+export const NETWORK_PROVIDERS = [
+    { name: "mtn", icon: "mtn", id: 1 },
+    { name: "glo", icon: "glo", id: 2 },
+    { name: "airtel", icon: "airtel", id: 3 },
+    { name: "9-mobile", icon: "9-mobile", id: 4 }
+];
+
+export type NETWORK_PROVIDERS_TYPE = keyof typeof NETWORK_PROVIDERS;
