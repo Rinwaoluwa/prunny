@@ -36,7 +36,7 @@ const BalanceCard = () => {
             <View style={styles.actionsContainer}>
                 {actions.map((action: any, index) => (
                     <Pressable key={`Button ${index}`} style={styles.actionButton}>
-                        <Icon name={action.name} size={normalise(32)} />
+                        <Icon name={action.name} size={normalise(32)} fill={palette['yellow']} />
                         <AppText fontFamily='regular' fontSize={12} color='white' >{action.title}</AppText>
                     </Pressable>
                 ))}

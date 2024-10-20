@@ -9,6 +9,7 @@ import { Button } from "@/components/buttons/Button";
 import { CreditCard } from "@/components/CreditCard";
 import AddNewCard from "@/components/AddNewCard";
 import { AccountDetails } from "@/components/AccountDetails";
+import { palette } from "@/config/palette";
 
 export default function PaymentMethod() {
     const [paymentMode, setPaymentMode] = useState('wallet');
@@ -36,7 +37,7 @@ export default function PaymentMethod() {
                         ]}
                         onPress={() => setPaymentMode('wallet')}
                     >
-                        <Icon name="wallet" size={normalise(24)} />
+                        <Icon name="wallet" size={normalise(24)} fill={palette['primary--4']} />
                         <Text style={styles.paymentButtonText}>Wallet</Text>
                     </Pressable>
 
@@ -47,7 +48,7 @@ export default function PaymentMethod() {
                         ]}
                         onPress={() => setPaymentMode('card')}
                     >
-                        <Icon name="credit-card" size={normalise(24)} />
+                        <Icon name="credit-card" size={normalise(24)} fill={palette['primary--4']} />
                         <Text style={styles.paymentButtonText}>Card</Text>
                     </Pressable>
                 </View>

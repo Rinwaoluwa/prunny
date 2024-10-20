@@ -18,7 +18,7 @@ const PayActions: React.FC<PayActionProps> = ({ iconName, title, href }) => {
     return (
         <Link href={href} asChild>
             <TouchableOpacity style={styles.action}>
-                <Icon name={iconName} size={normalise(24)} />
+                <Icon name={iconName} size={normalise(24)} fill={palette['yellow']} />
                 <AppText color='black' fontFamily='regular' style={styles.actionText}>{title}</AppText>
             </TouchableOpacity>
         </Link>
