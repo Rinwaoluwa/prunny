@@ -10,6 +10,7 @@ import { FLEX } from "@/config/constants";
 import EnterBankDetails from "@/screens/send-money/EnterBankDetails";
 import PaymentMethod from "@/screens/payment-method/payment-method";
 import EnterAmount from "@/screens/enter-amount/EnterAmount";
+import TransactionSummary from "@/components/TransactionSummary";
 
 enum SendMoneyFlow {
     bankDetails,
@@ -22,6 +23,7 @@ enum SendMoneyFlow {
 
 export default function SendMoney() {
     const [currentStep, setCurrentStep] = useState(SendMoneyFlow.bankDetails);
+    const [isVisible, setIsVisible] = useState(false);
     const router = useRouter();
 
     const handleContinue = (currentStep: SendMoneyFlow) => {
@@ -63,6 +65,7 @@ export default function SendMoney() {
                 setCurrentStep(SendMoneyFlow.enterAmount);
                 break;
             case SendMoneyFlow.pin:
+                setIsVisible(true);
                 setCurrentStep(SendMoneyFlow.transactionSummary)
                 break;
             case SendMoneyFlow.success:
@@ -72,6 +75,18 @@ export default function SendMoney() {
                 setCurrentStep(SendMoneyFlow.bankDetails)
         }
     };
+
+
+    const handleCloseModal = () => {
+        setIsVisible(false);
+        setCurrentStep(SendMoneyFlow.enterAmount);
+    };
+
+    const handleModalContinue = () => {
+        setIsVisible(false);
+        handleContinue(currentStep)
+    };
+
     const renderCurrentScreen = () => {
         switch (currentStep) {
             case SendMoneyFlow.bankDetails:
@@ -79,16 +94,28 @@ export default function SendMoney() {
             case SendMoneyFlow.paymentMethod:
                 return <PaymentMethod handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.enterAmount:
-                return <EnterAmount handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.transactionSummary:
-            // return <TransactionSummary handleContinue={() => handleContinue(currentStep)} />
+                return (
+                    <>
+                        <EnterAmount
+                            handleContinue={() => {
+                                setIsVisible(true);
+                                handleContinue(currentStep);
+                            }}
+                        />
+                        <TransactionSummary
+                            isVisible={isVisible}
+                            onClose={handleCloseModal}
+                            onContinue={handleModalContinue}
+                        />
+                    </>
+                )
             case SendMoneyFlow.pin:
-
                 return (
                     <View style={[FLEX, styles.container]}>
-                        <OTP 
+                        <OTP
                             title="Please enter your PIN to complete transaction"
-                            handleContinue={() => handleContinue(currentStep)} 
+                            handleContinue={() => handleContinue(currentStep)}
                         />
                     </View>
                 )
