@@ -79,9 +79,9 @@ export default function SendMoney() {
             case SendMoneyFlow.paymentMethod:
                 return <PaymentMethod handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.enterAmount:
-            return <EnterAmount />
+            return <EnterAmount handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.transactionSummary:
-            // return <TransactionSummary />
+            // return <TransactionSummary handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.pin:
                 return <OTP title="Please enter your PIN to complete transaction" handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.success:

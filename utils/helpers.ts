@@ -22,3 +22,9 @@ export const formatCardNumber = (cardNumber: string): string => {
     // Split into chunks of 4 and join with a space
     return cleaned.replace(/(\d{4})(?=\d)/g, '$1    ');
 };
+
+export const formatAmount = (value: string): string => {
+    const cleanedValue = value.replace(/\D/g, '');
+
+    return cleanedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

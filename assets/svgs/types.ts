@@ -31,6 +31,7 @@ import prunnyLogo3 from "./icons/prunny-logo-3.svg";
 import addNewWallet from "./icons/add-new-wallet.svg";
 import visible from "./icons/visible-1.svg";
 import hidden from "./icons/hidden-1.svg";
+import nairaSign from "./icons/naira-sign.svg";
 
 export const ICONS = {
     security,
@@ -63,6 +64,7 @@ export const ICONS = {
     "add-new-wallet": addNewWallet,
     visible,
     hidden,
+    "naira-sign": nairaSign,
 };
 
 export type IconName = keyof typeof ICONS;
