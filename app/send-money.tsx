@@ -79,11 +79,19 @@ export default function SendMoney() {
             case SendMoneyFlow.paymentMethod:
                 return <PaymentMethod handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.enterAmount:
-            return <EnterAmount handleContinue={() => handleContinue(currentStep)} />
+                return <EnterAmount handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.transactionSummary:
             // return <TransactionSummary handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.pin:
-                return <OTP title="Please enter your PIN to complete transaction" handleContinue={() => handleContinue(currentStep)} />
+
+                return (
+                    <View style={[FLEX, styles.container]}>
+                        <OTP 
+                            title="Please enter your PIN to complete transaction"
+                            handleContinue={() => handleContinue(currentStep)} 
+                        />
+                    </View>
+                )
             case SendMoneyFlow.success:
             // return <TransactionSuccess />
         }
@@ -123,6 +131,11 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     buttonContainer: {
-        marginTop: pixelSizeVertical(30)
-    }
+        marginTop: pixelSizeVertical(30),
+    },
+    container: {
+        paddingVertical: pixelSizeVertical(37),
+        paddingHorizontal: pixelSizeHorizontal(20),
+        backgroundColor: palette['white'],
+    },
 })
