@@ -43,9 +43,6 @@ export default function SendMoney() {
             case SendMoneyFlow.pin:
                 setCurrentStep(SendMoneyFlow.success)
                 break;
-            case SendMoneyFlow.success:
-                () => { }
-                break;
             default:
                 setCurrentStep(SendMoneyFlow.bankDetails);
         }
@@ -67,9 +64,6 @@ export default function SendMoney() {
             case SendMoneyFlow.pin:
                 setIsVisible(true);
                 setCurrentStep(SendMoneyFlow.transactionSummary)
-                break;
-            case SendMoneyFlow.success:
-                () => { };
                 break;
             default:
                 setCurrentStep(SendMoneyFlow.bankDetails)
@@ -114,13 +108,13 @@ export default function SendMoney() {
                 return (
                     <View style={[FLEX, styles.container]}>
                         <OTP
-                            title="Please enter your PIN to complete transaction"
-                            handleContinue={() => handleContinue(currentStep)}
+                            title=" Enter OTP you just received"
+                            handleContinue={() => router.replace("/transaction-successful")}
                         />
                     </View>
                 )
-            case SendMoneyFlow.success:
-            // return <TransactionSuccess />
+            default:
+                return <EnterBankDetails handleContinue={() => handleContinue(currentStep)} />
         }
     }
     return (

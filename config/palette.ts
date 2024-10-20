@@ -15,6 +15,7 @@ export const palette = {
     'black--2': "#07000DB2",
     white: "#FFFFFF",
     grey: "#A0A0A0",
+    transparent: "transparent"
 };
 
 export type Palette = keyof typeof palette;
