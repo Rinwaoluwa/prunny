@@ -10,8 +10,13 @@ import { CreditCard } from "@/components/CreditCard";
 import AddNewCard from "@/components/AddNewCard";
 import { AccountDetails } from "@/components/AccountDetails";
 import { palette } from "@/config/palette";
+import { CARD_DETAILS, WALLET_BALANCE } from "@/config/constants";
 
-export default function PaymentMethod() {
+interface Props {
+    handleContinue: () => void;
+}
+
+export default function PaymentMethod({ handleContinue }: Props) {
     const [paymentMode, setPaymentMode] = useState('wallet');
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -59,21 +64,27 @@ export default function PaymentMethod() {
                 contentContainerStyle={styles.cardContainer}
                 style={styles.scrollView}
             >
-                <AddNewCard />
-                {[{name: "SOMTO OYINDA PETER", cardNumber: "5426125654261256"}, {name: "somto oyinda peter", cardNumber: "9358364667354628"}].map((card, index) => (
-                    <CreditCard 
-                        key={index}
-                        cardName={card.name}
-                        cardNumber={card.cardNumber}
-                        selected={selectedIndex == index} 
-                        onPress={() => setSelectedIndex(index)} />
-                    )
+                {paymentMode === "wallet" ? (
+                    WALLET_BALANCE.map((bal: string, index: number) => (<WalletCard key={index} balance={bal} selected={selectedIndex == index} onPress={() => setSelectedIndex(index)} />))
+                ) : (
+                    <>
+                        <AddNewCard />
+                        {CARD_DETAILS.map((card, index) => (
+                            <CreditCard
+                                key={index}
+                                cardName={card.name}
+                                cardNumber={card.cardNumber}
+                                selected={selectedIndex == index}
+                                onPress={() => setSelectedIndex(index)}
+                            />
+                        ))}
+                    </>
                 )}
-                
-                {/* {["5,000.29", "1,000,000.456"].map((bal: string, index: number) => (<WalletCard key={index} balance={bal} selected={selectedIndex == index} onPress={() => setSelectedIndex(index)} />))} */}
+
+
             </ScrollView>
             <View style={styles.container}>
-                <Button title="Continue" backgroundColor="primary--4" />
+                <Button title="Continue" backgroundColor="primary--4" onPress={handleContinue} />
             </View>
         </>
     )

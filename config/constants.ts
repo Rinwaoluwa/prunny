@@ -8,3 +8,9 @@ export const PAY_ACTIONS = [
 ]
 
 export type PAY_ACTIONS_TYPE = keyof typeof PAY_ACTIONS;
+
+export const WALLET_BALANCE = ["5,000.29", "1,000,000.456"];
+
+export const CARD_DETAILS = [{ name: "SOMTO OYINDA PETER", cardNumber: "5426125654261256" }, { name: "somto oyinda peter", cardNumber: "9358364667354628" }];
+
+export type CARD_DETAILS_TYPE = keyof typeof CARD_DETAILS;

@@ -9,6 +9,7 @@ import { BackButton } from "@/components/buttons/BackButton";
 import { FLEX } from "@/config/constants";
 import EnterBankDetails from "@/screens/send-money/EnterBankDetails";
 import PaymentMethod from "@/screens/payment-method/payment-method";
+import EnterAmount from "@/screens/enter-amount/EnterAmount";
 
 enum SendMoneyFlow {
     bankDetails,
@@ -76,9 +77,9 @@ export default function SendMoney() {
             case SendMoneyFlow.bankDetails:
                 return <EnterBankDetails handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.paymentMethod:
-                return <PaymentMethod />
+                return <PaymentMethod handleContinue={() => handleContinue(currentStep)} />
             case SendMoneyFlow.enterAmount:
-            // return <EnterAmount />
+            return <EnterAmount />
             case SendMoneyFlow.transactionSummary:
             // return <TransactionSummary />
             case SendMoneyFlow.pin:
