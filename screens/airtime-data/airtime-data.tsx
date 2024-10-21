@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, TextInput } from 'react-native';
 import { TabSelector } from '@/components/TabSelector';
 import { useForm, Controller } from 'react-hook-form';
 import { AppTextInput } from '@/components/AppTextInput';
 import { formatAmount } from '@/utils/helpers';
-import { fontPixel, heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '@/config/normalise';
+import { normalise } from '@/config/normalise';
 import { palette } from '@/config/palette';
 import Icon from '@/assets/svgs/icons';
 import { FLEX, NETWORK_PLANS, NETWORK_PROVIDERS } from '@/config/constants';
 import { AppText } from '@/components/AppText';
 import { Button } from '@/components/buttons/Button';
 import { styles } from './style';
-import Dropdown from '@/components/NetworkProviderDropdwon';
+import Dropdown from '@/components/Dropdown';
 
 
 interface AirtimeDataProps {
@@ -107,7 +106,6 @@ export default function AirtimeData({ onContinue }: AirtimeDataProps) {
                                 placeholder='Select Plan'
                             />
                         )}
-                        {/* <View style={{marginBottom: 15}} /> */}
                     </>
                 )}
             </View>
