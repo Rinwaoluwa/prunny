@@ -84,6 +84,7 @@ export default function CreatePassword(
                 backgroundColor="primary--4"
                 style={{ marginBottom: pixelSizeVertical(44) }}
                 disabled={disabled}
+                onPress={handleContinue}
             />
         </View>
     )

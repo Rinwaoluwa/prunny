@@ -2,9 +2,11 @@ import { BackButton } from "@/components/buttons/BackButton"
 import { ProgressBar } from "@/components/ProgressBar"
 import { FLEX } from "@/config/constants"
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise"
+import { palette } from "@/config/palette"
 import CreateAccount from "@/screens/create-account/create-account"
 import CreatePassword from "@/screens/create-password/create-password"
 import { EnterEmail } from "@/screens/email/email"
+import EnterPin from "@/screens/enter-pin/EnterPin"
 import OTP from "@/screens/otp/otp"
 import PersonalDetails from "@/screens/personal-details/personal-details-form"
 import { ADDRESS_DETAILS, PERSONAL_DETAILS } from "@/utils/form-fields"
@@ -19,15 +21,17 @@ enum CreateAccountFLow {
     faceScan,
     enterEmail,
     createPassword,
-    fingerPrint,
+    // fingerPrint,
     pin,
 }
+const TOTAL_SCREENS = 7;
 
 export default () => {
     const [currentStep, setCurrentStep] = useState(CreateAccountFLow.getStarted);
     const [formField, setFormField] = useState("personalDetails");
     const router = useRouter();
 
+    const progress = currentStep / TOTAL_SCREENS;
 
     const handleContinue = () => {
         switch (currentStep) {
@@ -47,13 +51,14 @@ export default () => {
                 setCurrentStep(CreateAccountFLow.createPassword)
                 break;
             case CreateAccountFLow.createPassword:
-                setCurrentStep(CreateAccountFLow.fingerPrint)
-                break;
-            case CreateAccountFLow.fingerPrint:
                 setCurrentStep(CreateAccountFLow.pin)
                 break;
+            // case CreateAccountFLow.fingerPrint:
+            //     setCurrentStep(CreateAccountFLow.pin)
+            //     break;
             case CreateAccountFLow.pin:
-                () => { }
+                router.replace("/(tabs)/");
+                break;
             default:
                 setCurrentStep(CreateAccountFLow.getStarted)
 
@@ -83,11 +88,11 @@ export default () => {
             case CreateAccountFLow.createPassword:
                 setCurrentStep(CreateAccountFLow.enterEmail)
                 break;
-            case CreateAccountFLow.fingerPrint:
-                setCurrentStep(CreateAccountFLow.createPassword)
-                break;
+            // case CreateAccountFLow.fingerPrint:
+            //     setCurrentStep(CreateAccountFLow.createPassword)
+            //     break;
             case CreateAccountFLow.pin:
-                setCurrentStep(CreateAccountFLow.fingerPrint)
+                setCurrentStep(CreateAccountFLow.createPassword)
                 break;
             default:
                 setCurrentStep(CreateAccountFLow.getStarted)
@@ -131,6 +136,23 @@ export default () => {
             // return <FaceScan />
             case CreateAccountFLow.enterEmail:
             return <EnterEmail handleContinue={handleContinue} />
+            case CreateAccountFLow.createPassword:
+                return (
+                    <CreatePassword
+                        title="Your security is Key!  Set a strong password here"
+                        caption="Setup your transaction PIN"
+                        handleContinue={handleContinue} 
+                    />
+                )
+            case CreateAccountFLow.pin:
+                return (
+                    <EnterPin 
+                        title="Secure your transactions with a safe Authorization PIN"
+                        buttonTitle="Finish"
+                        handleContinue={handleContinue}
+                        style={{paddingVertical: 0, paddingHorizontal: 0}}
+                    />
+                )
             default:
                 return <CreateAccount handleContinue={handleContinue} />
         }
@@ -139,7 +161,7 @@ export default () => {
         <View style={[styles.container, FLEX]}>
             <View style={styles.topButtonsContainer}>
                 <BackButton onPress={handleGoBack} />
-                <ProgressBar progress={.2} />
+                <ProgressBar progress={progress} />
             </View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={FLEX}>
@@ -152,9 +174,10 @@ export default () => {
 
 export const styles = StyleSheet.create({
     container: {
-        marginHorizontal: pixelSizeHorizontal(20),
-        marginTop: pixelSizeVertical(32),
-        marginBottom: pixelSizeVertical(29),
+        paddingHorizontal: pixelSizeHorizontal(20),
+        paddingTop: pixelSizeVertical(32),
+        paddingBottom: pixelSizeVertical(29),
+        backgroundColor: palette['white'],
     },
     topButtonsContainer: {
         flexDirection: "row",
