@@ -3,6 +3,8 @@ import { ProgressBar } from "@/components/ProgressBar"
 import { FLEX } from "@/config/constants"
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise"
 import CreateAccount from "@/screens/create-account/create-account"
+import CreatePassword from "@/screens/create-password/create-password"
+import { EnterEmail } from "@/screens/email/email"
 import OTP from "@/screens/otp/otp"
 import PersonalDetails from "@/screens/personal-details/personal-details-form"
 import { ADDRESS_DETAILS, PERSONAL_DETAILS } from "@/utils/form-fields"
@@ -27,7 +29,7 @@ export default () => {
     const router = useRouter();
 
 
-    const handleContinue = (currentStep: CreateAccountFLow) => {
+    const handleContinue = () => {
         switch (currentStep) {
             case CreateAccountFLow.getStarted:
                 setCurrentStep(CreateAccountFLow.Otp)
@@ -96,14 +98,14 @@ export default () => {
             case CreateAccountFLow.getStarted:
                 return (
                     <CreateAccount
-                        handleContinue={() => handleContinue(currentStep)}
+                        handleContinue={handleContinue}
                     />
                 )
             case CreateAccountFLow.Otp:
                 return (
                     <OTP
                         title="Kindly verify your number with the OTP you just received"
-                        handleContinue={() => handleContinue(currentStep)}
+                        handleContinue={handleContinue}
                     />
                 )
             case CreateAccountFLow.personalDetails:
@@ -120,7 +122,7 @@ export default () => {
                                 title={ADDRESS_DETAILS.title}
                                 caption={ADDRESS_DETAILS.caption}
                                 formFields={ADDRESS_DETAILS.fields}
-                                handleContinue={() => handleContinue(currentStep)}
+                                handleContinue={handleContinue}
                             />
                         }
                     </>
@@ -128,9 +130,9 @@ export default () => {
             case CreateAccountFLow.faceScan:
             // return <FaceScan />
             case CreateAccountFLow.enterEmail:
-            // return <Email />
+            return <EnterEmail handleContinue={handleContinue} />
             default:
-                return <CreateAccount handleContinue={() => handleContinue(currentStep)} />
+                return <CreateAccount handleContinue={handleContinue} />
         }
     };
     return (
