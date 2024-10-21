@@ -5,6 +5,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { styles } from "./style";
 import { Button } from "@/components/buttons/Button";
+import { heightPixel, widthPixel } from "@/config/normalise";
 
 interface Props {
     handleContinue: () => void;
@@ -23,12 +24,17 @@ export default function EnterPin({ handleContinue }: Props) {
             <AppText
                 color="grey--2"
                 fontFamily="regular"
+                style={styles.textStyle}
             >
                 Please enter your PIN to complete transaction
             </AppText>
-            <OtpInput length={6} onComplete={handleSetPin} />
+            <OtpInput
+                length={6}
+                inputStyle={{ width: widthPixel(49.8), height: heightPixel(44) }}
+                onComplete={handleSetPin}
+            />
             <View style={FLEX} />
-            <Button title="Proceed" onPress={handleContinue} />
+            <Button title="Proceed" backgroundColor="primary--4" onPress={handleContinue} />
         </View>
     )
 }

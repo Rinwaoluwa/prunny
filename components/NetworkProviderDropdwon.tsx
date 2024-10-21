@@ -3,24 +3,29 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList } from 'react
 import { Ionicons } from '@expo/vector-icons';
 import { SvgXml } from 'react-native-svg';
 import Icon from '@/assets/svgs/icons';
-import { heightPixel, normalise } from '@/config/normalise';
+import { heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical } from '@/config/normalise';
+import { palette } from '@/config/palette';
+import { AppText } from './AppText';
+import { FLEX } from '@/config/constants';
 
 interface NetworkProvider {
   id: number;
   name: "mtn" | "glo" | "9-mobile" | "glo";
-  icon: "mtn" | "glo" | "9-mobile" | "glo";
+  icon?: "mtn" | "glo" | "9-mobile" | "glo";
 }
 
 interface NetworkDropdownProps {
   providers: NetworkProvider[];
   selectedProvider: NetworkProvider | null;
   onSelectProvider: (provider: NetworkProvider) => void;
+  placeholder?: string;
 }
 
 const NetworkDropdown: React.FC<NetworkDropdownProps> = ({
   providers,
   selectedProvider,
   onSelectProvider,
+  placeholder = "Select Network",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,8 +41,10 @@ const NetworkDropdown: React.FC<NetworkDropdownProps> = ({
       style={styles.providerItem}
       onPress={() => handleSelectProvider(item)}
     >
-      <Icon name={item.icon} size={normalise(24)} />
-      <Text style={styles.providerName}>{item.name}</Text>
+      {item.icon && <Icon name={item.icon} size={normalise(24)} />}
+      <AppText fontFamily='regular' color='primary--1' style={styles.providerName}>
+        {item.name.toUpperCase()}
+      </AppText>
     </TouchableOpacity>
   );
 
@@ -46,11 +53,15 @@ const NetworkDropdown: React.FC<NetworkDropdownProps> = ({
       <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
         {selectedProvider ? (
           <>
-            <Icon name={selectedProvider.icon} size={normalise(24)} />
-            <Text style={styles.selectedProviderName}>{selectedProvider.name.toUpperCase()}</Text>
+            {selectedProvider.icon && <Icon name={selectedProvider.icon} size={normalise(24)} />}
+            <AppText fontFamily='regular' color='primary--1' fontSize={16} style={[FLEX, styles.selectedProviderName]}>
+              {selectedProvider.name.toUpperCase()}
+            </AppText>
           </>
         ) : (
-          <Text style={styles.placeholderText}>Select Network</Text>
+          <AppText fontFamily='regular' color='primary--1' fontSize={16} style={FLEX}>
+            {placeholder}
+          </AppText>
         )}
         <Ionicons name={isOpen ? "chevron-up" : "chevron-down"} size={normalise(24)} color="#333" />
       </TouchableOpacity>
@@ -71,53 +82,45 @@ const NetworkDropdown: React.FC<NetworkDropdownProps> = ({
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    marginTop: pixelSizeVertical(10),
+    marginBottom: pixelSizeVertical(20),
   },
   dropdown: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 12,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    padding: normalise(12),
+    borderWidth: normalise(1),
+    borderColor: palette['primary--2'],
+    borderRadius: normalise(8),
+    backgroundColor: palette['white'],
   },
   selectedProviderName: {
-    flex: 1,
-    marginLeft: 12,
-    fontSize: 16,
-    color: '#333',
-  },
-  placeholderText: {
-    flex: 1,
-    fontSize: 16,
-    color: '#999',
+    marginLeft: pixelSizeHorizontal(12),
   },
   dropdownList: {
     position: 'absolute',
     top: '100%',
     left: 0,
     right: 0,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
+    backgroundColor: palette['white'],
+    borderWidth: normalise(1),
     borderColor: '#E0E0E0',
-    borderRadius: 8,
-    marginTop: 4,
-    maxHeight: 200,
+    borderRadius: normalise(8),
+    marginTop: pixelSizeVertical(4),
+    maxHeight: heightPixel(200),
     zIndex: 999,
   },
   providerItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 12,
+    padding: normalise(12),
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
     height: heightPixel(42)
   },
   providerName: {
-    marginLeft: 12,
-    fontSize: 16,
-    color: '#333',
+    marginLeft: pixelSizeHorizontal(12),
   },
 });
 

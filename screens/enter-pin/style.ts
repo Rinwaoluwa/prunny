@@ -8,4 +8,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: pixelSizeHorizontal(20),
         backgroundColor: palette['white']
     },
+    textStyle: {
+        marginBottom: pixelSizeVertical(20),
+    }
 });

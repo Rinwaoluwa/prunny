@@ -32,7 +32,14 @@ export const NETWORK_PROVIDERS = [
     { name: "mtn", icon: "mtn", id: 1 },
     { name: "glo", icon: "glo", id: 2 },
     { name: "airtel", icon: "airtel", id: 3 },
-    { name: "9-mobile", icon: "9-mobile", id: 4 }
+    { name: "9mobile", icon: "9-mobile", id: 4 }
 ];
 
 export type NETWORK_PROVIDERS_TYPE = keyof typeof NETWORK_PROVIDERS;
+
+export const NETWORK_PLANS = [
+    { name: "20MB valid for 24hours (₦25)", id: 1 },
+    { name: "2GB valid for 2days (₦500)", id: 2 },
+    { name: "7GB valid for 7days (₦1,500)", id: 3 },
+    { name: "40GB valid for 1month (₦11,000)", id: 4 }
+];

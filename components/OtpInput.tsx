@@ -1,14 +1,15 @@
 import { normalise, pixelSizeHorizontal, pixelSizeVertical } from '@/config/normalise';
 import { palette } from '@/config/palette';
 import React, { useState, useRef, useEffect } from 'react';
-import { View, TextInput, StyleSheet, NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
+import { View, TextInput, StyleSheet, NativeSyntheticEvent, TextInputKeyPressEventData, ViewStyle } from 'react-native';
 
 interface OtpInputProps {
     length: number;
     onComplete: (code: string) => void;
+    inputStyle?: ViewStyle;
 }
 
-const OtpInput: React.FC<OtpInputProps> = ({ length, onComplete }) => {
+const OtpInput: React.FC<OtpInputProps> = ({ length, onComplete, inputStyle }) => {
     const [code, setCode] = useState<string[]>(Array(length).fill(''));
     const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
     const inputRefs = useRef<TextInput[]>([]);
@@ -54,7 +55,8 @@ const OtpInput: React.FC<OtpInputProps> = ({ length, onComplete }) => {
                     key={index}
                     style={[
                         styles.inputContainer,
-                        (focusedIndex === index || digit !== '') && styles.focusedInput
+                        (focusedIndex === index || digit !== '') && styles.focusedInput,
+                        inputStyle
                     ]}
                 >
                     <TextInput

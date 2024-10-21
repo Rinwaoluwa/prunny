@@ -5,18 +5,94 @@ import { heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical, widthPi
 import { AppText } from "@/components/AppText";
 import { BackButton } from "@/components/buttons/BackButton";
 import AirtimeData from "@/screens/airtime-data/airtime-data";
+import { useState } from "react";
+import { useRouter } from "expo-router";
+import PaymentMethod from "@/screens/payment-method/payment-method";
+import TransactionSummary from "@/components/TransactionSummary";
+import EnterPin from "@/screens/enter-pin/EnterPin";
 
 enum AirtimeDataFlow {
     airtimeData,
     paymentMethod,
     transactionSummary,
     enterPin,
-    transactionSuccesful
 }
 
 export default function AirtimeDataScreen() {
+    const [currentStep, setCurrentStep] = useState(AirtimeDataFlow.airtimeData);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const handleGoBack = () => { };
+    const router = useRouter();
+
+    const handleContinue = () => {
+        switch (currentStep) {
+            case AirtimeDataFlow.airtimeData:
+                setCurrentStep(AirtimeDataFlow.paymentMethod);
+                break;
+            case AirtimeDataFlow.paymentMethod:
+                setCurrentStep(AirtimeDataFlow.transactionSummary);
+                break;
+            case AirtimeDataFlow.transactionSummary:
+                setCurrentStep(AirtimeDataFlow.enterPin);
+                break;
+            default:
+                setCurrentStep(AirtimeDataFlow.airtimeData);
+        }
+    };
+    const handleGoBack = () => {
+        switch (currentStep) {
+            case AirtimeDataFlow.airtimeData:
+                router.back();
+            case AirtimeDataFlow.paymentMethod:
+                setCurrentStep(AirtimeDataFlow.airtimeData);
+                break;
+            case AirtimeDataFlow.transactionSummary:
+                setCurrentStep(AirtimeDataFlow.paymentMethod);
+                break;
+            case AirtimeDataFlow.enterPin:
+                setIsModalVisible(true);
+                setCurrentStep(AirtimeDataFlow.transactionSummary);
+                break;
+            default:
+                setCurrentStep(AirtimeDataFlow.airtimeData);
+        }
+    };
+    const handleCloseModal = () => {
+        setIsModalVisible(false);
+        setCurrentStep(AirtimeDataFlow.paymentMethod);
+    };
+
+    const handleModalContinue = () => {
+        setIsModalVisible(false);
+        handleContinue()
+    };
+
+    const renderCurrentScreen = () => {
+        switch (currentStep) {
+            case AirtimeDataFlow.airtimeData:
+                return <AirtimeData onContinue={handleContinue} />
+            case AirtimeDataFlow.paymentMethod:
+            case AirtimeDataFlow.transactionSummary:
+                return (
+                    <>
+                        <PaymentMethod handleContinue={() => {
+                            setIsModalVisible(true);
+                            handleContinue();
+                        }} />
+                        <TransactionSummary
+                            isVisible={isModalVisible}
+                            onClose={handleCloseModal}
+                            onContinue={handleModalContinue}
+                        />
+                    </>
+                )
+            case AirtimeDataFlow.enterPin:
+                return <EnterPin handleContinue={() => router.replace("/transaction-successful")} />
+            default:
+                return <AirtimeData onContinue={handleContinue} />
+
+        }
+    };
 
     return (
         <>
@@ -32,7 +108,7 @@ export default function AirtimeDataScreen() {
             </View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={FLEX}>
-                    <AirtimeData />
+                    {renderCurrentScreen()}
                 </View>
             </TouchableWithoutFeedback>
         </>
