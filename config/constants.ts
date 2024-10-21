@@ -43,3 +43,15 @@ export const NETWORK_PLANS = [
     { name: "7GB valid for 7days (₦1,500)", id: 3 },
     { name: "40GB valid for 1month (₦11,000)", id: 4 }
 ];
+
+export const GENDER = [
+    {name: "Male", id: 1,},
+    {name: "Female", id: 2,},
+    {name: "Prefer not to say", id: 3,},
+];
+
+export const STATES = [
+    {name: "Lagos", id: 1,},
+    {name: "Abuja", id: 2,},
+    {name: "Kano", id: 3,},
+]

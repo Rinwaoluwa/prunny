@@ -4,6 +4,8 @@ import { FLEX } from "@/config/constants"
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise"
 import CreateAccount from "@/screens/create-account/create-account"
 import OTP from "@/screens/otp/otp"
+import PersonalDetails from "@/screens/personal-details/personal-details-form"
+import { ADDRESS_DETAILS, PERSONAL_DETAILS } from "@/utils/form-fields"
 import { useRouter } from "expo-router"
 import { useState } from "react"
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
@@ -21,6 +23,7 @@ enum CreateAccountFLow {
 
 export default () => {
     const [currentStep, setCurrentStep] = useState(CreateAccountFLow.getStarted);
+    const [formField, setFormField] = useState("personalDetails");
     const router = useRouter();
 
 
@@ -63,6 +66,10 @@ export default () => {
                 setCurrentStep(CreateAccountFLow.getStarted)
                 break;
             case CreateAccountFLow.personalDetails:
+                if(formField === "address") {
+                    setFormField("personalDetails");
+                    return;
+                };
                 setCurrentStep(CreateAccountFLow.Otp)
                 break;
             case CreateAccountFLow.faceScan:
@@ -94,13 +101,30 @@ export default () => {
                 )
             case CreateAccountFLow.Otp:
                 return (
-                    <OTP 
+                    <OTP
                         title="Kindly verify your number with the OTP you just received"
                         handleContinue={() => handleContinue(currentStep)}
                     />
                 )
             case CreateAccountFLow.personalDetails:
-            // return <PersonalDetails />
+                return (
+                    <>
+                        {formField === "personalDetails" ?
+                            <PersonalDetails
+                                title={PERSONAL_DETAILS.title}
+                                caption={PERSONAL_DETAILS.caption}
+                                formFields={PERSONAL_DETAILS.fields}
+                                handleContinue={() => setFormField("address")}
+                            /> :
+                            <PersonalDetails
+                                title={ADDRESS_DETAILS.title}
+                                caption={ADDRESS_DETAILS.caption}
+                                formFields={ADDRESS_DETAILS.fields}
+                                handleContinue={() => handleContinue(currentStep)}
+                            />
+                        }
+                    </>
+                )
             case CreateAccountFLow.faceScan:
             // return <FaceScan />
             case CreateAccountFLow.enterEmail:
