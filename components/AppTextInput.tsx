@@ -88,11 +88,11 @@ export const AppTextInput = ({
                                     fontSize: fontPixel(14),
                                     color: palette['primary--1'],
                                 }
-
                             ]}
                             onPressIn={() => props.onPress?.()}
                             {...props}
                             selectionColor={palette['primary--2']}
+                            placeholderTextColor={palette['lightGrey']}
                         />
                         {props.right && (
                             <Pressable onPress={props?.onPressRigthtIcon}>
