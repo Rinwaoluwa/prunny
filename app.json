@@ -7,12 +7,17 @@
     "icon": "./assets/images/icon.png",
     "scheme": "prunnny",
     "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.jpg",
+      "resizeMode": "cover",
+      "backgroundColor": "#663191"
+    },
     "ios": {
       "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#663191"
       }
     },
@@ -23,12 +28,6 @@
     },
     "plugins": [
       "expo-router",
-      [
-        "react-native-bootsplash",
-        {
-          "assetsDir": "assets/bootsplash"
-        }
-      ],
       "expo-font",
       [
         "expo-camera",
