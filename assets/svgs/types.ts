@@ -36,6 +36,8 @@ import airtel from "./icons/airtel.svg";
 import mtn from "./icons/mtn.svg";
 import glo from "./icons/globacom.svg";
 import nineMobile from "./icons/9mobile.svg";
+import faceScan from "./icons/face-scan.svg";
+import camera from "./icons/camera.svg";
 
 export const ICONS = {
     security,
@@ -73,6 +75,8 @@ export const ICONS = {
     mtn,
     glo,
     "9-mobile": nineMobile,
+    "face-scan": faceScan,
+    camera,
 };
 
 export type IconName = keyof typeof ICONS;

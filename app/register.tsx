@@ -7,6 +7,7 @@ import CreateAccount from "@/screens/create-account/create-account"
 import CreatePassword from "@/screens/create-password/create-password"
 import { EnterEmail } from "@/screens/email/email"
 import EnterPin from "@/screens/enter-pin/EnterPin"
+import FaceScan from "@/screens/face-scan/FaceScan"
 import OTP from "@/screens/otp/otp"
 import PersonalDetails from "@/screens/personal-details/personal-details-form"
 import { ADDRESS_DETAILS, PERSONAL_DETAILS } from "@/utils/form-fields"
@@ -133,7 +134,7 @@ export default () => {
                     </>
                 )
             case CreateAccountFLow.faceScan:
-            // return <FaceScan />
+            return <FaceScan handleContinue={handleContinue} />
             case CreateAccountFLow.enterEmail:
             return <EnterEmail handleContinue={handleContinue} />
             case CreateAccountFLow.createPassword:
