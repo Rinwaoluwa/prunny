@@ -25,7 +25,7 @@ enum CreateAccountFLow {
     // fingerPrint,
     pin,
 }
-const TOTAL_SCREENS = 7;
+const TOTAL_SCREENS = 6;
 
 export default () => {
     const [currentStep, setCurrentStep] = useState(CreateAccountFLow.getStarted);
@@ -74,7 +74,7 @@ export default () => {
                 setCurrentStep(CreateAccountFLow.getStarted)
                 break;
             case CreateAccountFLow.personalDetails:
-                if(formField === "address") {
+                if (formField === "address") {
                     setFormField("personalDetails");
                     return;
                 };
@@ -134,24 +134,24 @@ export default () => {
                     </>
                 )
             case CreateAccountFLow.faceScan:
-            return <FaceScan handleContinue={handleContinue} />
+                return <FaceScan handleContinue={handleContinue} />
             case CreateAccountFLow.enterEmail:
-            return <EnterEmail handleContinue={handleContinue} />
+                return <EnterEmail handleContinue={handleContinue} />
             case CreateAccountFLow.createPassword:
                 return (
                     <CreatePassword
                         title="Your security is Key!  Set a strong password here"
                         caption="Setup your transaction PIN"
-                        handleContinue={handleContinue} 
+                        handleContinue={handleContinue}
                     />
                 )
             case CreateAccountFLow.pin:
                 return (
-                    <EnterPin 
+                    <EnterPin
                         title="Secure your transactions with a safe Authorization PIN"
                         buttonTitle="Finish"
                         handleContinue={handleContinue}
-                        style={{paddingVertical: 0, paddingHorizontal: 0}}
+                        style={{ paddingVertical: 0, paddingHorizontal: 0 }}
                     />
                 )
             default:

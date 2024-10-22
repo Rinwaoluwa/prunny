@@ -1,6 +1,7 @@
 import { BackButton } from "@/components/buttons/BackButton";
 import { FLEX } from "@/config/constants";
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise";
+import { palette } from "@/config/palette";
 import CreatePassword from "@/screens/create-password/create-password";
 import ForgotPasswordPage from "@/screens/forgot-password/forgot-password";
 import OTP from "@/screens/otp/otp";
@@ -83,7 +84,8 @@ export default () => {
 
 export const styles = StyleSheet.create({
     container: {
-        marginHorizontal: pixelSizeHorizontal(20),
-        marginTop: pixelSizeVertical(32),
+        paddingHorizontal: pixelSizeHorizontal(20),
+        paddingTop: pixelSizeVertical(32),
+        backgroundColor: palette['white'],
     },
 });
