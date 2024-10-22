@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { normalise, pixelSizeHorizontal, pixelSizeVertical } from '@/config/normalise';
+import { palette } from '@/config/palette';
 
 export const styles = StyleSheet.create({
     container: {
-        marginHorizontal: pixelSizeHorizontal(20),
-        marginTop: pixelSizeVertical(74),
+        paddingHorizontal: pixelSizeHorizontal(20),
+        paddingTop: pixelSizeVertical(74),
+        backgroundColor: palette['white']
     },
     textInputStyle: {
         marginBottom: pixelSizeVertical(24),

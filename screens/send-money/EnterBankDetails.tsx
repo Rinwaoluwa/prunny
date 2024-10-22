@@ -5,23 +5,28 @@ import { BANK_DETAILS } from "@/utils/form-fields";
 import { pixelSizeVertical } from "@/config/normalise";
 import { styles } from "./styles";
 import { View } from "react-native";
-import { FLEX } from "@/config/constants";
+import { BANKS, BANKS_TYPE, FLEX } from "@/config/constants";
 
 interface Props {
     handleContinue: () => void;
 }
 
 export default function EnterBankDetails({ handleContinue }: Props) {
-    const { control, handleSubmit, setValue, watch, formState: { errors } } = useForm({
+    const { control, handleSubmit, setValue, getValues, watch, formState: { errors } } = useForm({
         defaultValues: {
-            selectbank: '',
+            bank: '',
             accountNumber: '',
         },
     });
 
+    const handleSelectBank = (provider: any) => {
+        setValue("bank", provider)
+    };
+
     const onSubmit = (data: any) => {
         console.log("Form Submitted!", data);
     };
+
     return (
         <View style={[FLEX,styles.container]}>
             <AppText
@@ -44,6 +49,10 @@ export default function EnterBankDetails({ handleContinue }: Props) {
                     handleSubmit(onSubmit);
                     handleContinue();
                 }}
+                dropdownPlaceholder="Select Bank"
+                dropdownProviders={BANKS}
+                selectedDropdown={getValues("bank")}
+                onChangeDropdown={handleSelectBank}
             />
         </View>
     )

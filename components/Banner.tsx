@@ -16,7 +16,7 @@ export function Banner() {
                 style={styles.scrollViewStyle}
             >
                 <View style={styles.banner}>
-                    <ImageBackground source={require("../assets/images/banner.jpg")} style={[FLEX, styles.background]}>
+                    <ImageBackground source={require("../assets/images/banner.jpeg")} style={[FLEX, styles.background]}>
                         <AppText fontFamily="bold" fontSize={18} color="white">SECURE PAYMENT</AppText>
                         <AppText fontFamily="medium" color="white" style={{ marginBottom: pixelSizeVertical(13.4) }}>with Prunny</AppText>
                         <AppText fontFamily="regular" color="white" style={{ marginBottom: pixelSizeVertical(21.82) }}>

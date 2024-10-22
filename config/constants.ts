@@ -45,13 +45,22 @@ export const NETWORK_PLANS = [
 ];
 
 export const GENDER = [
-    {name: "Male", id: 1,},
-    {name: "Female", id: 2,},
-    {name: "Prefer not to say", id: 3,},
+    { name: "Male", id: 1, },
+    { name: "Female", id: 2, },
+    { name: "Prefer not to say", id: 3, },
 ];
 
 export const STATES = [
-    {name: "Lagos", id: 1,},
-    {name: "Abuja", id: 2,},
-    {name: "Kano", id: 3,},
-]
+    { name: "Lagos", id: 1, },
+    { name: "Abuja", id: 2, },
+    { name: "Kano", id: 3, },
+];
+
+export const BANKS = [
+    { name: "CTMFB", id: 1, },
+    { name: "UBA", id: 2, },
+    { name: "ZENITH", id: 3, },
+    { name: "GT BANK", id: 4, },
+];
+
+export type BANKS_TYPE = typeof BANKS[0];

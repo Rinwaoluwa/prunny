@@ -50,10 +50,10 @@ export default function Form({
     onChangeDropdown,
 }: Props) {
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [focused, setFocused] = useState(false);
     const [dateFocused, setDateFocused] = useState(false);
 
     const [date, gender] = watch(["dateOfBirth", "gender"]);
+    console.log("selected dropdown: ", selectedDropdown)
 
     return (
         <>
@@ -87,7 +87,7 @@ export default function Form({
                             providers={dropdownProviders as any}
                             selectedProvider={selectedDropdown}
                             onSelectProvider={onChangeDropdown as any}
-                            dropdownListStyle={{ backgroundColor: "transparent" }}
+                            dropdownListStyle={{ backgroundColor: palette['white'], zIndex: 99 }}
                             dropdownStyle={{ backgroundColor: "transparent" }}
                         />
                     );
