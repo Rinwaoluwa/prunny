@@ -29,7 +29,6 @@ export default function CreateAccount({ handleContinue }: { handleContinue: () =
             return true;
         } catch (error) {
             if (error instanceof z.ZodError) {
-                console.log(error)
                 setError(error.errors[0].message);
             }
             return false;
