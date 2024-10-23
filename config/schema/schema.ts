@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const PHONE_REGEX = /^[0-9]{11}$/;
+const PHONE_REGEX = /^[0-9]{10}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const NETWORK_PROVIDERS = ['MTN', 'Airtel', 'Glo', '9mobile'] as const;
 
