@@ -6,6 +6,9 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { FLEX } from '@/config/constants';
 import { useCallback, useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { PersistGate } from "redux-persist/es/integration/react";
+import { persistor, store } from '@/config/store/store';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -37,23 +40,27 @@ export default function RootLayout() {
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <GestureHandlerRootView style={FLEX} onLayout={onLayoutRootView}>
-        <BottomSheetModalProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="index" />
-            <Stack.Screen name="forgot-password" />
-            <Stack.Screen name="register" />
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="send-money" />
-            <Stack.Screen name="airtime-data" />
-            <Stack.Screen name="transaction-successful" />
-          </Stack>
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <GestureHandlerRootView style={FLEX} onLayout={onLayoutRootView}>
+            <BottomSheetModalProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                }}
+              >
+                <Stack.Screen name="index" />
+                <Stack.Screen name="forgot-password" />
+                <Stack.Screen name="register" />
+                <Stack.Screen name="(tabs)" />
+                <Stack.Screen name="send-money" />
+                <Stack.Screen name="airtime-data" />
+                <Stack.Screen name="transaction-successful" />
+              </Stack>
+            </BottomSheetModalProvider>
+          </GestureHandlerRootView>
+        </PersistGate>
+      </Provider>
     </>
   );
 }
