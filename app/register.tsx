@@ -119,12 +119,14 @@ export default () => {
                     <>
                         {formField === "personalDetails" ?
                             <PersonalDetails
+                                key={0}
                                 title={PERSONAL_DETAILS.title}
                                 caption={PERSONAL_DETAILS.caption}
                                 formFields={PERSONAL_DETAILS.fields}
                                 handleContinue={() => setFormField("address")}
                             /> :
                             <PersonalDetails
+                                key={1}
                                 title={ADDRESS_DETAILS.title}
                                 caption={ADDRESS_DETAILS.caption}
                                 formFields={ADDRESS_DETAILS.fields}
