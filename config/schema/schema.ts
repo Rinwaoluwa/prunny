@@ -1,20 +1,19 @@
-import { number, z, ZodString } from 'zod';
+import { z } from 'zod';
+import { PASSWORD_REGEX, PHONE_REGEX } from '../constants';
 
-const PHONE_REGEX = /^[0-9]{10}$/;
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const NETWORK_PROVIDERS = ['MTN', 'Airtel', 'Glo', '9mobile'] as const;
 
 export const userSchema = z.object({
     // Login
     phoneNumber: z.string().regex(PHONE_REGEX, 'Invalid phone number'),
-    password: z.string().regex(PASSWORD_REGEX, 'Password must be at least 8 characters, include uppercase, lowercase, number and special character'),
+    password: z.string().trim().regex(PASSWORD_REGEX, 'Password must be at least 8 characters, include uppercase, lowercase, number and special character'),
 
     // OTP
     otp: z.string().length(4, 'OTP must be 4 digits'),
 
     // User Details
-    firstName: z.string().min(2, 'Name must be at least 2 characters'),
-    lastName: z.string().min(2, 'Name must be at least 2 characters'),
+    firstName: z.string().trim().min(2, 'Name must be at least 2 characters'),
+    lastName: z.string().trim().min(2, 'Name must be at least 2 characters'),
     dateOfBirth: z.date().refine((dob) => {
         const date = new Date(dob);
         const ageDifMs = Date.now() - date.getTime();
@@ -24,19 +23,19 @@ export const userSchema = z.object({
     gender: z.object({ name: z.string(), id: z.number() }),
 
     // Address
-    address: z.string().min(5, 'Address must be at least 5 characters'),
-    city: z.string().min(2, 'City must be at least 2 characters'),
+    address: z.string().trim().min(5, 'Address must be at least 5 characters'),
+    city: z.string().trim().min(2, 'City must be at least 2 characters'),
     state: z.object({ name: z.string(), id: z.number() }),
 
     // Email
-    email: z.string().email('Invalid email address'),
+    email: z.string().trim().email('Invalid email address'),
 
     // Transaction PIN
     transactionPin: z.string().length(6, 'PIN must be 6 digits'),
 
     // Fund Request
     fundAmount: z.number().min(100, 'Minimum amount to fund is N100'),
-    fundDescription: z.string().optional(),
+    fundDescription: z.string().trim().optional(),
 });
 
 // Airtime Purchase Schema
