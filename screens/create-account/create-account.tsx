@@ -9,14 +9,15 @@ import PhoneNumberInput from "@/components/PhoneNumberInput"
 import { Button } from "@/components/buttons/Button"
 import { RegisterationFormValues } from "@/config/schema/types"
 import { registrationSchema } from "@/config/schema/schema"
-import { useAppDispatch } from "@/config/store/hooks"
+import { useAppDispatch, useAppSelector } from "@/config/store/hooks"
 import { storeSignUpState1 } from "@/config/store/slices/signUpSlice"
+import { RootState } from "@/config/store/store"
 
 
 export default function CreateAccount({ handleContinue }: { handleContinue: () => void }) {
+    const dispatch = useAppDispatch();
     const [phoneNumber, setPhoneNumber] = useState<RegisterationFormValues['phoneNumber']>("");
     const [error, setError] = useState<Partial<RegisterationFormValues['phoneNumber']>>("");
-    const dispatch = useAppDispatch();
 
     const handleInput = (enteredText: string) => {
         setPhoneNumber(enteredText)

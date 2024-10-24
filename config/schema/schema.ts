@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { number, z, ZodString } from 'zod';
 
 const PHONE_REGEX = /^[0-9]{10}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -15,18 +15,18 @@ export const userSchema = z.object({
     // User Details
     firstName: z.string().min(2, 'Name must be at least 2 characters'),
     lastName: z.string().min(2, 'Name must be at least 2 characters'),
-    dateOfBirth: z.string().refine((dob) => {
+    dateOfBirth: z.date().refine((dob) => {
         const date = new Date(dob);
         const ageDifMs = Date.now() - date.getTime();
         const ageDate = new Date(ageDifMs);
         return Math.abs(ageDate.getUTCFullYear() - 1970) >= 18;
     }, 'You must be at least 18 years old'),
-    gender: z.enum(['Male', 'Female', 'Other']),
+    gender: z.object({ name: z.string(), id: z.number() }),
 
     // Address
     address: z.string().min(5, 'Address must be at least 5 characters'),
     city: z.string().min(2, 'City must be at least 2 characters'),
-    state: z.string().min(2, 'State must be at least 2 characters'),
+    state: z.object({ name: z.string(), id: z.number() }),
 
     // Email
     email: z.string().email('Invalid email address'),
@@ -75,5 +75,6 @@ export const addressSchema = userSchema.pick({
     city: true,
     state: true,
 });
+
 export const pinSetupSchema = userSchema.pick({ transactionPin: true });
 export const fundRequestSchema = userSchema.pick({ fundAmount: true, fundDescription: true });

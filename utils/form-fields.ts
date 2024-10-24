@@ -4,7 +4,7 @@ export const PERSONAL_DETAILS = {
     title: "Please enter your details",
     caption: "Tell us a little bit about yourself",
     fields: [
-        { placeholder: "Phone Number", keyboardType: "default", name: "phoneNumber", label: "Phone Number",},
+        { placeholder: "Enter your first name e.g Peter", keyboardType: "default", name: "firstName", label: "First Name",},
         { placeholder: " Enter your lastname e.g Ogbensi", keyboardType: "default", name: "lastName", label: "Last Name" },
         { type: "date", placeholder: "Date of birth", keyboardType: "default", name: "dateOfBirth", label: "Date of birth"},
         {

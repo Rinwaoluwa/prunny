@@ -52,8 +52,7 @@ export default function Form({
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [dateFocused, setDateFocused] = useState(false);
 
-    const [date, gender] = watch(["dateOfBirth", "gender"]);
-    console.log("selected dropdown: ", selectedDropdown)
+    const [date] = watch(["dateOfBirth", "gender"]);
 
     return (
         <>
@@ -80,6 +79,7 @@ export default function Form({
 
             {formFields.map((field, index) => {
                 if (field.type === 'dropdown') {
+                    console.log("dropdwon called! ")
                     return (
                         <Dropdown
                             key={index}
@@ -103,6 +103,7 @@ export default function Form({
                                     {
                                         borderColor: dateFocused || date
                                             ? palette['primary--2']
+                                            : errors.dateOfBirth?.message ? palette['red']
                                             : palette['grey--4'],
                                     },
                                 ]}
@@ -116,14 +117,25 @@ export default function Form({
                             </Pressable>
                             {showDatePicker && (
                                 <DateTimePicker
-                                    value={new Date()} // This should be controlled externally via setValue
+                                    value={new Date()}
                                     mode="date"
                                     display="default"
                                     onChange={(event, selectedDate) => {
                                         setShowDatePicker(false);
                                         setValue("dateOfBirth", selectedDate || "");
+                                        console.log("selected date: ", selectedDate)
                                     }}
                                 />
+                            )}
+                            {errors.dateOfBirth?.message && (
+                                <AppText
+                                    fontSize={12}
+                                    color="red"
+                                    fontFamily="medium"
+                                    style={{ marginBottom: pixelSizeVertical(8) }}
+                                >
+                                    {errors.dateOfBirth?.message}
+                                </AppText>
                             )}
                         </View>
                     );
