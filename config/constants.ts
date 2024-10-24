@@ -15,6 +15,8 @@ export const CARD_DETAILS = [{ name: "SOMTO OYINDA PETER", cardNumber: "54261256
 
 export type CARD_DETAILS_TYPE = keyof typeof CARD_DETAILS;
 
+export const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 export const TRANSACTION_SUMMARY = {
     transactionDetails: [
         { label: 'Account Number', value: '0001234567' },
