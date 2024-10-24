@@ -7,12 +7,17 @@
     "icon": "./assets/images/icon.png",
     "scheme": "prunnny",
     "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.jpg",
+      "resizeMode": "cover",
+      "backgroundColor": "#663191"
+    },
     "ios": {
       "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#663191"
       }
     },
@@ -23,13 +28,13 @@
     },
     "plugins": [
       "expo-router",
+      "expo-font",
       [
-        "react-native-bootsplash",
+        "expo-camera",
         {
-          "assetsDir": "assets/bootsplash"
+          "cameraPermission": "Allow Prunny to access your camera"
         }
-      ],
-      "expo-font"
+      ]
     ],
     "experiments": {
       "typedRoutes": true

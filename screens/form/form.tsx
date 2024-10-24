@@ -10,6 +10,7 @@ import { palette } from '@/config/palette';
 import { FLEX } from '@/config/constants';
 import { styles } from './style';
 import { formatDate } from '@/utils/helpers';
+import Dropdown from '@/components/Dropdown';
 
 interface FormField {
     name: string;
@@ -28,6 +29,10 @@ interface Props {
     watch: (fields: string[]) => any[];
     errors: any;
     handleContinue: () => void;
+    dropdownProviders?: Array<any>;
+    selectedDropdown?: any;
+    dropdownPlaceholder?: string;
+    onChangeDropdown?: (provider: any) => void;
 }
 
 export default function Form({
@@ -38,13 +43,16 @@ export default function Form({
     setValue,
     watch,
     errors,
-    handleContinue
+    handleContinue,
+    dropdownProviders,
+    selectedDropdown,
+    dropdownPlaceholder,
+    onChangeDropdown,
 }: Props) {
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [focused, setFocused] = useState(false);
     const [dateFocused, setDateFocused] = useState(false);
 
-    const [date, gender] = watch(["dateOfBirth", "gender"]);
+    const [date] = watch(["dateOfBirth", "gender"]);
 
     return (
         <>
@@ -70,32 +78,18 @@ export default function Form({
             )}
 
             {formFields.map((field, index) => {
-                // Handle Dropdown fields
                 if (field.type === 'dropdown') {
+                    console.log("dropdwon called! ")
                     return (
-                        <View
+                        <Dropdown
                             key={index}
-                            style={[
-                                styles.picker,
-                                { borderColor: focused || gender ? palette['primary--2'] : palette['primary--3'] },
-                            ]}
-                        >
-                            <Picker
-                                selectedValue={gender}
-                                onValueChange={(itemValue: string) => setValue("gender", itemValue)}
-                                onBlur={() => setFocused(false)}
-                                onFocus={() => setFocused(true)}
-                            >
-                                {field?.options?.map((option, i) => (
-                                    <Picker.Item
-                                        style={{ color: option?.color || palette['primary--1'] }}
-                                        key={i}
-                                        label={option.label}
-                                        value={option.value}
-                                    />
-                                ))}
-                            </Picker>
-                        </View>
+                            placeholder={dropdownPlaceholder}
+                            providers={dropdownProviders as any}
+                            selectedProvider={selectedDropdown}
+                            onSelectProvider={onChangeDropdown as any}
+                            dropdownListStyle={{ backgroundColor: palette['white'], zIndex: 99 }}
+                            dropdownStyle={{ backgroundColor: "transparent" }}
+                        />
                     );
                 }
 
@@ -109,6 +103,7 @@ export default function Form({
                                     {
                                         borderColor: dateFocused || date
                                             ? palette['primary--2']
+                                            : errors.dateOfBirth?.message ? palette['red']
                                             : palette['grey--4'],
                                     },
                                 ]}
@@ -122,14 +117,25 @@ export default function Form({
                             </Pressable>
                             {showDatePicker && (
                                 <DateTimePicker
-                                    value={new Date()} // This should be controlled externally via setValue
+                                    value={new Date()}
                                     mode="date"
                                     display="default"
                                     onChange={(event, selectedDate) => {
                                         setShowDatePicker(false);
                                         setValue("dateOfBirth", selectedDate || "");
+                                        console.log("selected date: ", selectedDate)
                                     }}
                                 />
+                            )}
+                            {errors.dateOfBirth?.message && (
+                                <AppText
+                                    fontSize={12}
+                                    color="red"
+                                    fontFamily="medium"
+                                    style={{ marginBottom: pixelSizeVertical(8) }}
+                                >
+                                    {errors.dateOfBirth?.message}
+                                </AppText>
                             )}
                         </View>
                     );

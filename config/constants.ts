@@ -15,6 +15,10 @@ export const CARD_DETAILS = [{ name: "SOMTO OYINDA PETER", cardNumber: "54261256
 
 export type CARD_DETAILS_TYPE = keyof typeof CARD_DETAILS;
 
+export const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+export const PHONE_REGEX = /^[0-9]{10,11}$/;
+
+
 export const TRANSACTION_SUMMARY = {
     transactionDetails: [
         { label: 'Account Number', value: '0001234567' },
@@ -43,3 +47,24 @@ export const NETWORK_PLANS = [
     { name: "7GB valid for 7days (₦1,500)", id: 3 },
     { name: "40GB valid for 1month (₦11,000)", id: 4 }
 ];
+
+export const GENDER = [
+    { name: "Male", id: 1, },
+    { name: "Female", id: 2, },
+    { name: "Prefer not to say", id: 3, },
+];
+
+export const STATES = [
+    { name: "Lagos", id: 1, },
+    { name: "Abuja", id: 2, },
+    { name: "Kano", id: 3, },
+];
+
+export const BANKS = [
+    { name: "CTMFB", id: 1, },
+    { name: "UBA", id: 2, },
+    { name: "ZENITH", id: 3, },
+    { name: "GT BANK", id: 4, },
+];
+
+export type BANKS_TYPE = typeof BANKS[0];

@@ -2,8 +2,15 @@ import { BackButton } from "@/components/buttons/BackButton"
 import { ProgressBar } from "@/components/ProgressBar"
 import { FLEX } from "@/config/constants"
 import { pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise"
+import { palette } from "@/config/palette"
 import CreateAccount from "@/screens/create-account/create-account"
+import CreatePassword from "@/screens/create-password/create-password"
+import { EnterEmail } from "@/screens/email/email"
+import EnterPin from "@/screens/enter-pin/EnterPin"
+import FaceScan from "@/screens/face-scan/FaceScan"
 import OTP from "@/screens/otp/otp"
+import PersonalDetails from "@/screens/personal-details/personal-details-form"
+import { ADDRESS_DETAILS, PERSONAL_DETAILS } from "@/utils/form-fields"
 import { useRouter } from "expo-router"
 import { useState } from "react"
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
@@ -15,16 +22,19 @@ enum CreateAccountFLow {
     faceScan,
     enterEmail,
     createPassword,
-    fingerPrint,
+    // fingerPrint,
     pin,
 }
+const TOTAL_SCREENS = 6;
 
 export default () => {
     const [currentStep, setCurrentStep] = useState(CreateAccountFLow.getStarted);
+    const [formField, setFormField] = useState("personalDetails");
     const router = useRouter();
 
+    const progress = currentStep / TOTAL_SCREENS;
 
-    const handleContinue = (currentStep: CreateAccountFLow) => {
+    const handleContinue = () => {
         switch (currentStep) {
             case CreateAccountFLow.getStarted:
                 setCurrentStep(CreateAccountFLow.Otp)
@@ -42,13 +52,14 @@ export default () => {
                 setCurrentStep(CreateAccountFLow.createPassword)
                 break;
             case CreateAccountFLow.createPassword:
-                setCurrentStep(CreateAccountFLow.fingerPrint)
-                break;
-            case CreateAccountFLow.fingerPrint:
                 setCurrentStep(CreateAccountFLow.pin)
                 break;
+            // case CreateAccountFLow.fingerPrint:
+            //     setCurrentStep(CreateAccountFLow.pin)
+            //     break;
             case CreateAccountFLow.pin:
-                () => { }
+                router.replace("/(tabs)/");
+                break;
             default:
                 setCurrentStep(CreateAccountFLow.getStarted)
 
@@ -63,6 +74,10 @@ export default () => {
                 setCurrentStep(CreateAccountFLow.getStarted)
                 break;
             case CreateAccountFLow.personalDetails:
+                if (formField === "address") {
+                    setFormField("personalDetails");
+                    return;
+                };
                 setCurrentStep(CreateAccountFLow.Otp)
                 break;
             case CreateAccountFLow.faceScan:
@@ -74,11 +89,11 @@ export default () => {
             case CreateAccountFLow.createPassword:
                 setCurrentStep(CreateAccountFLow.enterEmail)
                 break;
-            case CreateAccountFLow.fingerPrint:
-                setCurrentStep(CreateAccountFLow.createPassword)
-                break;
+            // case CreateAccountFLow.fingerPrint:
+            //     setCurrentStep(CreateAccountFLow.createPassword)
+            //     break;
             case CreateAccountFLow.pin:
-                setCurrentStep(CreateAccountFLow.fingerPrint)
+                setCurrentStep(CreateAccountFLow.createPassword)
                 break;
             default:
                 setCurrentStep(CreateAccountFLow.getStarted)
@@ -89,31 +104,67 @@ export default () => {
             case CreateAccountFLow.getStarted:
                 return (
                     <CreateAccount
-                        handleContinue={() => handleContinue(currentStep)}
+                        handleContinue={handleContinue}
                     />
                 )
             case CreateAccountFLow.Otp:
                 return (
-                    <OTP 
+                    <OTP
                         title="Kindly verify your number with the OTP you just received"
-                        handleContinue={() => handleContinue(currentStep)}
+                        handleContinue={handleContinue}
                     />
                 )
             case CreateAccountFLow.personalDetails:
-            // return <PersonalDetails />
+                return (
+                    <>
+                        {formField === "personalDetails" ?
+                            <PersonalDetails
+                                key={0}
+                                title={PERSONAL_DETAILS.title}
+                                caption={PERSONAL_DETAILS.caption}
+                                formFields={PERSONAL_DETAILS.fields}
+                                handleContinue={() => setFormField("address")}
+                            /> :
+                            <PersonalDetails
+                                key={1}
+                                title={ADDRESS_DETAILS.title}
+                                caption={ADDRESS_DETAILS.caption}
+                                formFields={ADDRESS_DETAILS.fields}
+                                handleContinue={handleContinue}
+                            />
+                        }
+                    </>
+                )
             case CreateAccountFLow.faceScan:
-            // return <FaceScan />
+                return <FaceScan handleContinue={handleContinue} />
             case CreateAccountFLow.enterEmail:
-            // return <Email />
+                return <EnterEmail handleContinue={handleContinue} />
+            case CreateAccountFLow.createPassword:
+                return (
+                    <CreatePassword
+                        title="Your security is Key!  Set a strong password here"
+                        caption=""
+                        handleContinue={handleContinue}
+                    />
+                )
+            case CreateAccountFLow.pin:
+                return (
+                    <EnterPin
+                        title="Secure your transactions with a safe Authorization PIN"
+                        buttonTitle="Finish"
+                        handleContinue={handleContinue}
+                        style={{ paddingVertical: 0, paddingHorizontal: 0 }}
+                    />
+                )
             default:
-                return <CreateAccount handleContinue={() => handleContinue(currentStep)} />
+                return <CreateAccount handleContinue={handleContinue} />
         }
     };
     return (
         <View style={[styles.container, FLEX]}>
             <View style={styles.topButtonsContainer}>
                 <BackButton onPress={handleGoBack} />
-                <ProgressBar progress={.2} />
+                <ProgressBar progress={progress} />
             </View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={FLEX}>
@@ -126,9 +177,10 @@ export default () => {
 
 export const styles = StyleSheet.create({
     container: {
-        marginHorizontal: pixelSizeHorizontal(20),
-        marginTop: pixelSizeVertical(32),
-        marginBottom: pixelSizeVertical(29),
+        paddingHorizontal: pixelSizeHorizontal(20),
+        paddingTop: pixelSizeVertical(32),
+        paddingBottom: pixelSizeVertical(29),
+        backgroundColor: palette['white'],
     },
     topButtonsContainer: {
         flexDirection: "row",

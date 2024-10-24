@@ -1,47 +1,51 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, FlatList, ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { SvgXml } from 'react-native-svg';
 import Icon from '@/assets/svgs/icons';
 import { heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical } from '@/config/normalise';
 import { palette } from '@/config/palette';
 import { AppText } from './AppText';
 import { FLEX } from '@/config/constants';
+import { IconName } from '@/assets/svgs/types';
 
-interface NetworkProvider {
+interface Props {
   id: number;
-  name: "mtn" | "glo" | "9-mobile" | "glo";
-  icon?: "mtn" | "glo" | "9-mobile" | "glo";
+  name: string;
+  icon?: string;
 }
 
-interface NetworkDropdownProps {
-  providers: NetworkProvider[];
-  selectedProvider: NetworkProvider | null;
-  onSelectProvider: (provider: NetworkProvider) => void;
+interface DropdownProps {
+  providers: Props[];
+  selectedProvider: Props | null;
+  onSelectProvider: (provider: Props) => void;
   placeholder?: string;
+  dropdownListStyle?: ViewStyle;
+  dropdownStyle?: ViewStyle;
 }
 
-const NetworkDropdown: React.FC<NetworkDropdownProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
   providers,
   selectedProvider,
   onSelectProvider,
   placeholder = "Select Network",
+  dropdownListStyle,
+  dropdownStyle,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const handleSelectProvider = (provider: NetworkProvider) => {
+  const handleSelectProvider = (provider: Props) => {
     onSelectProvider(provider);
     setIsOpen(false);
   };
 
-  const renderProvider = ({ item }: { item: NetworkProvider }) => (
+  const renderProvider = ({ item }: { item: Props }) => (
     <TouchableOpacity
       style={styles.providerItem}
       onPress={() => handleSelectProvider(item)}
     >
-      {item.icon && <Icon name={item.icon} size={normalise(24)} />}
+      {item.icon && <Icon name={item.icon as IconName} size={normalise(24)} />}
       <AppText fontFamily='regular' color='primary--1' style={styles.providerName}>
         {item.name.toUpperCase()}
       </AppText>
@@ -50,10 +54,10 @@ const NetworkDropdown: React.FC<NetworkDropdownProps> = ({
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
+      <TouchableOpacity style={[styles.dropdown, dropdownStyle]} onPress={toggleDropdown}>
         {selectedProvider ? (
           <>
-            {selectedProvider.icon && <Icon name={selectedProvider.icon} size={normalise(24)} />}
+            {selectedProvider.icon && <Icon name={selectedProvider.icon as IconName} size={normalise(24)} />}
             <AppText fontFamily='regular' color='primary--1' fontSize={16} style={[FLEX, styles.selectedProviderName]}>
               {selectedProvider.name.toUpperCase()}
             </AppText>
@@ -67,7 +71,7 @@ const NetworkDropdown: React.FC<NetworkDropdownProps> = ({
       </TouchableOpacity>
 
       {isOpen && (
-        <View style={styles.dropdownList}>
+        <View style={[styles.dropdownList, dropdownListStyle]}>
           <FlatList
             data={providers}
             renderItem={renderProvider}
@@ -124,4 +128,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NetworkDropdown;
+export default Dropdown;

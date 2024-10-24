@@ -1,16 +1,46 @@
+import { useState } from "react"
 import { View } from "react-native"
+import { z } from "zod"
 import { FLEX } from "@/config/constants"
 import { AppText } from "@/components/AppText"
 import { pixelSizeVertical } from "@/config/normalise"
 import { styles } from "./styles"
 import PhoneNumberInput from "@/components/PhoneNumberInput"
-import { useState } from "react"
 import { Button } from "@/components/buttons/Button"
+import { RegisterationFormValues } from "@/config/schema/types"
+import { registrationSchema } from "@/config/schema/schema"
+import { useAppDispatch, useAppSelector } from "@/config/store/hooks"
+import { storeSignUpState1 } from "@/config/store/slices/signUpSlice"
+import { RootState } from "@/config/store/store"
+
 
 export default function CreateAccount({ handleContinue }: { handleContinue: () => void }) {
-    const [phoneNumber, setPhoneNumber] = useState("");
+    const dispatch = useAppDispatch();
+    const [phoneNumber, setPhoneNumber] = useState<RegisterationFormValues['phoneNumber']>("");
+    const [error, setError] = useState<Partial<RegisterationFormValues['phoneNumber']>>("");
+
     const handleInput = (enteredText: string) => {
         setPhoneNumber(enteredText)
+    };
+
+    const validateForm = (): boolean => {
+        try {
+            registrationSchema.pick({ phoneNumber: true }).parse({ phoneNumber });
+            setError("");
+            return true;
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                setError(error.errors[0].message);
+            }
+            return false;
+        }
+    };
+
+    const handleSubmit = () => {
+        if (validateForm()) {
+            dispatch(storeSignUpState1({ phoneNumber }));
+            handleContinue();
+        }
     };
 
     return (
@@ -32,6 +62,16 @@ export default function CreateAccount({ handleContinue }: { handleContinue: () =
                 Start making your payments, settling your bills easily and faster
             </AppText>
             <PhoneNumberInput value={phoneNumber} onChangeText={handleInput} />
+            {error && (
+                <AppText
+                    fontSize={12}
+                    color="red"
+                    fontFamily="medium"
+                    style={{ marginBottom: pixelSizeVertical(8) }}
+                >
+                    {error}
+                </AppText>
+            )}
             <View style={styles.terms}>
                 <AppText
                     fontSize={13}
@@ -50,7 +90,7 @@ export default function CreateAccount({ handleContinue }: { handleContinue: () =
             </View>
             {/* White spacing view. */}
             <View style={FLEX}></View>
-            <Button title='Continue' backgroundColor="primary--4" onPress={handleContinue} disabled={!phoneNumber} />
+            <Button title='Continue' backgroundColor="primary--4" onPress={handleSubmit} disabled={!phoneNumber} />
         </>
     )
 }

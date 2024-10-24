@@ -2,7 +2,7 @@ import { Keyboard, Pressable, TouchableWithoutFeedback, View } from "react-nativ
 import { AppText } from "@/components/AppText";
 import { FLEX } from "@/config/constants";
 import { styles } from "./styles";
-import { normalise, pixelSizeHorizontal, pixelSizeVertical } from "@/config/normalise";
+import { normalise, pixelSizeVertical } from "@/config/normalise";
 import { AppTextInput } from "@/components/AppTextInput";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,10 @@ import { AppBottomSheet } from "../../components/BottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { FingerPrintIcon } from "../../components/FingerPrintIcon";
 import { useBiometrics } from "@/hooks/useBiometrics";
+import { useAppDispatch } from "@/config/store/hooks";
+import { resetProfileInfo, setAuthenticatedUser } from "@/config/store/slices/profileInfoSlice";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "@/config/schema/schema";
 
 export default function LoginPage() {
     const sheetRef = useRef<null | BottomSheetModal>(null);
@@ -21,29 +25,51 @@ export default function LoginPage() {
     const { isBiometricSupported, handleBiometricsAuthentication } = useBiometrics();
     const router = useRouter();
 
+    const dispatch = useAppDispatch();
+
     const {
         control,
         handleSubmit,
         formState: { errors },
         setError,
-        reset,
         watch,
-        setValue
     } = useForm({
         defaultValues: {
-            phoneNumber: '9988777271',
-            password: 'aaabbbccc',
+            phoneNumber: '',
+            password: '',
         },
         mode: "onSubmit",
-        // resolver: zodResolver(login),
+        resolver: zodResolver(loginSchema),
     });
     const [password, phoneNumber] = watch(["password", "phoneNumber"]);
     const disable = phoneNumber && password ? false : true;
 
     const onSubmit = () => {
-        try {
+        if (phoneNumber === "09167658262" && "Aaabbb333@") {
+            dispatch(setAuthenticatedUser({ isAuthenticated: true }));
 
-        } catch (error) { }
+            dispatch(resetProfileInfo({
+                accounts: {
+                    accountName: "Peter Odejobi",
+                    accountNumber: "10120003456",
+                    availableBalance: 10000,
+                    bankName: "CTMFB",
+                },
+                profileInfo: {
+                    address: "10 Glover road ikoyi Lagos.",
+                    country: "Nigeria",
+                    dateOfBirth: "10122003",
+                    firstName: "Peter",
+                    lastName: "Odejobi",
+                    phoneNumber: "09167658262",
+                }
+            }));
+            router.replace("/(tabs)/");
+        }
+        setError("password", {
+            type: "custom",
+            message: "Invalid aaccount details",
+        });
 
     };
 
@@ -83,7 +109,7 @@ export default function LoginPage() {
                         control={control}
                         label="Password"
                         placeholder="Password"
-                        error={errors.phoneNumber?.message}
+                        error={errors.password?.message}
                         name="password"
                         secureTextEntry={hidePassword}
                         right={hidePassword ? "eye-closed" : "eye-open"}
@@ -98,10 +124,10 @@ export default function LoginPage() {
                     </Link>
 
                     <View style={styles.buttonsContainer}>
-                        <Button title='Log In' onPress={() => router.replace("/(tabs)/")} backgroundColor="primary--4" style={styles.loginButton} disabled={disable} />
+                        <Button title='Log In' onPress={handleSubmit(onSubmit)} backgroundColor="primary--4" style={styles.loginButton} disabled={disable} />
                         <BiometricsButton disabled={!isBiometricSupported} onPress={expandBottomSheet} />
                     </View>
-                    
+
                     {/* White spacing view. */}
                     <View style={FLEX}></View>
 

@@ -1,3 +1,4 @@
+import { PASSWORD_REGEX } from '@/config/constants';
 import { fontPixel, normalise, pixelSizeHorizontal, pixelSizeVertical } from '@/config/normalise';
 import { palette } from '@/config/palette';
 import React from 'react';
@@ -11,8 +12,8 @@ const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps> = ({ p
     const getPasswordStrength = (password: string): [number, string, string] => {
         if (password.length < 4) return [1, 'Very weak', palette['red']];
         if (password.length < 8) return [2, 'So-so', palette['yellow']];
-        if (password.length < 12) return [3, 'Good', palette['green--1']];
-        return [4, 'Great', palette['green--2']];
+
+        return PASSWORD_REGEX.test(password) ? [4, 'Great', palette['green--2']] : [3, 'Good', palette['green--1']];
     };
 
     const [strength, label, color] = getPasswordStrength(password);

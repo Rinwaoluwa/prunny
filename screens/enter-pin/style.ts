@@ -10,5 +10,8 @@ export const styles = StyleSheet.create({
     },
     textStyle: {
         marginBottom: pixelSizeVertical(20),
+    },
+    title: {
+        marginBottom: pixelSizeVertical(66),
     }
 });

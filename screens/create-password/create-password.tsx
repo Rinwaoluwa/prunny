@@ -1,40 +1,47 @@
 import { useState } from "react";
 import { Keyboard, View } from "react-native";
 import { FLEX } from "@/config/constants";
-import { styles } from "./styles";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { AppText } from "@/components/AppText";
 import { pixelSizeVertical } from "@/config/normalise";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AppTextInput } from "@/components/AppTextInput";
 import PasswordStrengthIndicator from "@/components/PasswordStrengthIndicator";
 import { Button } from "@/components/buttons/Button";
+import { createPasswordSchema } from "@/config/schema/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CreatePasswordFormValues } from "@/config/schema/types";
+import { useAppDispatch } from "@/config/store/hooks";
+import { storeSignUpState5 } from "@/config/store/slices/signUpSlice";
 
 export default function CreatePassword(
-    { title, caption, handleContinue }: 
-    { title: string; caption: string; handleContinue: () => void }
+    { title, caption, handleContinue }:
+        { title: string; caption: string; handleContinue: () => void }
 ) {
     const [hidePassword, setHidePassword] = useState(true);
     const [hideConfrimPassword, setHideConfirmPassword] = useState(true);
+
+    const dispatch = useAppDispatch();
 
     const {
         control,
         handleSubmit,
         formState: { errors },
-        setError,
-        reset,
         watch,
-        setValue
     } = useForm({
         defaultValues: {
-            password: 'aaabbbccc',
-            confirmPassword: 'aaabbbccc',
+            password: '',
+            confirmPassword: '',
         },
         mode: "onSubmit",
-        // resolver: zodResolver(login),
+        resolver: zodResolver(createPasswordSchema),
     });
     const [password, confirmPassword] = watch(["password", "confirmPassword"]);
     const disabled = password ? confirmPassword ? false : true : true;
+    
+    const onSubmit: SubmitHandler<CreatePasswordFormValues> = (data: CreatePasswordFormValues) => {
+        dispatch(storeSignUpState5({ password: data?.password }));
+        handleContinue();
+    }
 
     return (
         <View style={FLEX}>
@@ -84,6 +91,7 @@ export default function CreatePassword(
                 backgroundColor="primary--4"
                 style={{ marginBottom: pixelSizeVertical(44) }}
                 disabled={disabled}
+                onPress={handleSubmit(onSubmit)}
             />
         </View>
     )
