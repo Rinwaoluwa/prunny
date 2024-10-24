@@ -1,11 +1,16 @@
+import { useState } from "react";
+import { View, ViewStyle } from "react-native";
+import { z } from "zod"
 import { AppText } from "@/components/AppText";
 import OtpInput from "@/components/OtpInput";
 import { FLEX } from "@/config/constants";
-import { useState } from "react";
-import { View, ViewStyle } from "react-native";
 import { styles } from "./style";
 import { Button } from "@/components/buttons/Button";
 import { heightPixel, pixelSizeVertical, widthPixel } from "@/config/normalise";
+import { PinFormValues } from "@/config/schema/types";
+import { pinSetupSchema } from "@/config/schema/schema";
+import { useAppDispatch } from "@/config/store/hooks";
+import { storeSignUpState6 } from "@/config/store/slices/signUpSlice";
 
 interface Props {
     handleContinue: () => void;
@@ -22,13 +27,34 @@ export default function EnterPin({
     buttonTitle = "Proceed",
     handleContinue
 }: Props) {
-    const [pin, setPin] = useState("");
+    const [pin, setPin] = useState<PinFormValues | string>("");
+    const [error, setError] = useState("");
+    const dispatch = useAppDispatch();
+
     const handleSetPin = (pin: string) => {
         setPin(pin);
-        if (pin) {
-            console.log("pin correct")
+    };
+
+    const validateForm = (): boolean => {
+        try {
+            pinSetupSchema.parse({ transactionPin: pin });
+            setError("");
+            return true;
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                setError(error.errors[0].message);
+            }
+            return false;
         }
-    }
+    };
+
+    const handleSubmit = () => {
+        if (validateForm()) {
+            dispatch(storeSignUpState6({ pin } as any));
+            handleContinue();
+        }
+    };
+
     return (
         <View style={[FLEX, styles.container, style]}>
             {title && (
@@ -53,8 +79,18 @@ export default function EnterPin({
                 inputStyle={{ width: widthPixel(49.8), height: heightPixel(44), marginRight: pixelSizeVertical(4.24) }}
                 onComplete={handleSetPin}
             />
+            {error && (
+                <AppText
+                    fontSize={12}
+                    color="red"
+                    fontFamily="medium"
+                    style={{ marginBottom: pixelSizeVertical(8) }}
+                >
+                    {error}
+                </AppText>
+            )}
             <View style={FLEX} />
-            <Button title={buttonTitle} backgroundColor="primary--4" onPress={handleContinue} />
+            <Button title={buttonTitle} backgroundColor="primary--4" onPress={handleSubmit} />
         </View>
     )
 }

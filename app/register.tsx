@@ -143,7 +143,7 @@ export default () => {
                 return (
                     <CreatePassword
                         title="Your security is Key!  Set a strong password here"
-                        caption="Setup your transaction PIN"
+                        caption=""
                         handleContinue={handleContinue}
                     />
                 )
