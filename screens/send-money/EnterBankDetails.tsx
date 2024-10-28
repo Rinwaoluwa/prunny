@@ -18,6 +18,7 @@ export default function EnterBankDetails({ handleContinue }: Props) {
             accountNumber: '',
         },
     });
+    const SELECTED_BANK = watch("bank");
 
     const handleSelectBank = (provider: any) => {
         setValue("bank", provider)
@@ -51,7 +52,7 @@ export default function EnterBankDetails({ handleContinue }: Props) {
                 }}
                 dropdownPlaceholder="Select Bank"
                 dropdownProviders={BANKS}
-                selectedDropdown={getValues("bank")}
+                selectedDropdown={SELECTED_BANK}
                 onChangeDropdown={handleSelectBank}
             />
         </View>

@@ -1,14 +1,15 @@
 import { useFonts } from 'expo-font';
 import { Stack } from "expo-router";
-import { SafeAreaView, StatusBar } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { FLEX } from '@/config/constants';
 import { useCallback, useEffect } from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from "redux-persist/es/integration/react";
-import { persistor, store } from '@/config/store/store';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { FLEX } from '@/config/constants';
+import { persistor, RootState, store } from '@/config/store/store';
+import { useAppSelector } from '@/config/store/hooks';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -19,6 +20,7 @@ export default function RootLayout() {
     medium: require('../assets/fonts/Roboto-Medium.ttf'),
     regular: require('../assets/fonts/Roboto-Regular.ttf'),
   });
+
 
   useEffect(() => {
     if (loaded || error) {
@@ -37,30 +39,35 @@ export default function RootLayout() {
     return null;
   };
 
+
   return (
     <>
       <StatusBar barStyle="light-content" />
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <GestureHandlerRootView style={FLEX} onLayout={onLayoutRootView}>
-            <BottomSheetModalProvider>
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                }}
-              >
-                <Stack.Screen name="index" />
-                <Stack.Screen name="forgot-password" />
-                <Stack.Screen name="register" />
-                <Stack.Screen name="(tabs)" />
-                <Stack.Screen name="send-money" />
-                <Stack.Screen name="airtime-data" />
-                <Stack.Screen name="transaction-successful" />
-              </Stack>
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
+          <SafeAreaView style={FLEX}>
+            <GestureHandlerRootView style={FLEX} onLayout={onLayoutRootView}>
+              <BottomSheetModalProvider>
+                <RootAppLayout />
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </SafeAreaView>
         </PersistGate>
       </Provider>
     </>
   );
-}
+};
+
+function RootAppLayout() {
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.profileInfo);
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      {isAuthenticated ? <Stack.Screen name="(main)" /> : <Stack.Screen name="(auth)/index" />}
+    </Stack>
+  )
+};

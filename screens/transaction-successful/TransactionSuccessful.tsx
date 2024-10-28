@@ -55,7 +55,7 @@ export default function TransactionSuccessful() {
                     }}
                     onPress={() => router.replace("/send-money")}
                 />
-                <Button title="Go back to Dashboard" backgroundColor='primary--4' onPress={() => router.navigate("/(tabs)/")} />
+                <Button title="Go back to Dashboard" backgroundColor='primary--4' onPress={() => router.navigate("/(main)/")} />
             </View>
         </View>
     );

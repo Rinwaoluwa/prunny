@@ -6,7 +6,7 @@ import { normalise, pixelSizeVertical } from "@/config/normalise";
 import { AppTextInput } from "@/components/AppTextInput";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useRouter } from "expo-router";
+import { Link, router } from "expo-router";
 import Icon from "@/assets/svgs/icons";
 import { Button } from "../../components/buttons/Button";
 import { BiometricsButton } from "../../components/buttons/BiometricsButton";
@@ -16,14 +16,11 @@ import { FingerPrintIcon } from "../../components/FingerPrintIcon";
 import { useBiometrics } from "@/hooks/useBiometrics";
 import { useAppDispatch } from "@/config/store/hooks";
 import { resetProfileInfo, setAuthenticatedUser } from "@/config/store/slices/profileInfoSlice";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "@/config/schema/schema";
 
 export default function LoginPage() {
     const sheetRef = useRef<null | BottomSheetModal>(null);
     const [hidePassword, setHidePassword] = useState(true);
     const { isBiometricSupported, handleBiometricsAuthentication } = useBiometrics();
-    const router = useRouter();
 
     const dispatch = useAppDispatch();
 
@@ -39,15 +36,12 @@ export default function LoginPage() {
             password: '',
         },
         mode: "onSubmit",
-        resolver: zodResolver(loginSchema),
     });
     const [password, phoneNumber] = watch(["password", "phoneNumber"]);
     const disable = phoneNumber && password ? false : true;
 
     const onSubmit = () => {
-        if (phoneNumber === "09167658262" && "Aaabbb333@") {
-            dispatch(setAuthenticatedUser({ isAuthenticated: true }));
-
+        if (phoneNumber === "09167658262" && password === "Aaabbb333@") {
             dispatch(resetProfileInfo({
                 accounts: {
                     accountName: "Peter Odejobi",
@@ -64,12 +58,19 @@ export default function LoginPage() {
                     phoneNumber: "09167658262",
                 }
             }));
-            router.replace("/(tabs)/");
+            dispatch(setAuthenticatedUser({ isAuthenticated: true }));
+        } else {
+            setError("phoneNumber", {
+                type: "custom",
+                message: "Phone number or account details are incorrect.",
+            });
+            setError("password", {
+                type: "custom",
+                message: "Password or account details are incorrect.",
+            });
         }
-        setError("password", {
-            type: "custom",
-            message: "Invalid aaccount details",
-        });
+
+        router.push("/(main)")
 
     };
 

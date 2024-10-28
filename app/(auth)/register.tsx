@@ -58,7 +58,7 @@ export default () => {
             //     setCurrentStep(CreateAccountFLow.pin)
             //     break;
             case CreateAccountFLow.pin:
-                router.replace("/(tabs)/");
+                router.replace("/(main)/");
                 break;
             default:
                 setCurrentStep(CreateAccountFLow.getStarted)

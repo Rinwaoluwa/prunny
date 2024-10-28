@@ -25,7 +25,7 @@ const profileSlice = createSlice({
     initialState,
     reducers: {
         resetProfileInfo: (
-            { accounts = initialState.accounts, profileInfo = initialState.profileInfo },
+            { accounts, profileInfo },
             { payload }: PayloadAction<Pick<IProfileSlice, "accounts" | "profileInfo">>
         ) => {
             accounts.accountName = payload.accounts.accountName;
@@ -41,7 +41,7 @@ const profileSlice = createSlice({
             profileInfo.phoneNumber = payload.profileInfo.phoneNumber;
         },
         setAuthenticatedUser: (
-            { isAuthenticated = initialState.isAuthenticated },
+            { isAuthenticated },
             { payload }: PayloadAction<Pick<IProfileSlice, "isAuthenticated">>
         ) => {
             isAuthenticated = payload.isAuthenticated;
