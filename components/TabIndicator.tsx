@@ -1,43 +1,74 @@
-import { normalise, pixelSizeHorizontal, pixelSizeVertical } from '@/config/normalise';
-import { palette } from '@/config/palette';
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+// TabIndicator.js
 
-interface TabIndicatorProps {
-  totalTabs: number;
+import { heightPixel, normalise, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from '@/config/normalise';
+import { palette } from '@/config/palette';
+import React, { useEffect, useRef } from 'react';
+import { View, Animated, StyleSheet } from 'react-native';
+
+interface Props {
   activeTab: number;
+  tabCount: number;
 }
 
-const TabIndicator: React.FC<TabIndicatorProps> = ({ totalTabs, activeTab }) => {
+export function TabIndicator ({ activeTab, tabCount }: Props) {
+  const indicators = Array.from({ length: tabCount });
+
+  const animations = useRef(
+    indicators.map(() => ({
+      width: new Animated.Value(20),
+      color: new Animated.Value(0),
+    }))
+  ).current;
+
+  useEffect(() => {
+    animations.forEach((animation, index) => {
+      Animated.parallel([
+        Animated.timing(animation.width, {
+          toValue: index === activeTab ? 50 : 20,
+          duration: 300,
+          useNativeDriver: false,
+        }),
+        Animated.timing(animation.color, {
+          toValue: index === activeTab ? 1 : 0,
+          duration: 300,
+          useNativeDriver: false,
+        }),
+      ]).start();
+    });
+  }, [activeTab]);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.bar} />
-      <View style={[styles.dot, { left: `${(100 / totalTabs) * activeTab}%` }]} />
+    <View style={styles.indicatorContainer}>
+      {indicators.map((_, index) => (
+        <Animated.View
+          key={index}
+          style={[
+            styles.indicator,
+            {
+              width: index === activeTab ? animations[index].width : widthPixel(10),
+              backgroundColor: animations[index].color.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['#9C7BD9', palette['white']],
+              }),
+            },
+          ]}
+        />
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: pixelSizeVertical(4),
-    width: pixelSizeVertical(35.64),
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: normalise(2),
-    marginTop: pixelSizeVertical(10),
+  indicatorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: pixelSizeVertical(15),
   },
-  bar: {
-    height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: normalise(2),
-  },
-  dot: {
-    position: 'absolute',
-    height: pixelSizeVertical(8),
-    width: pixelSizeHorizontal(8),
-    borderRadius: normalise(4),
-    backgroundColor: palette['white'],
-    top: normalise(-2),
-    marginLeft: pixelSizeHorizontal(-4),
+  indicator: {
+    height: heightPixel(10),
+    borderRadius: normalise(20),
+    marginHorizontal: pixelSizeHorizontal(5),
   },
 });
 

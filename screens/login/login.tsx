@@ -20,7 +20,7 @@ import { resetProfileInfo, setAuthenticatedUser } from "@/config/store/slices/pr
 export default function LoginPage() {
     const sheetRef = useRef<null | BottomSheetModal>(null);
     const [hidePassword, setHidePassword] = useState(true);
-    const { isBiometricSupported, handleBiometricsAuthentication } = useBiometrics();
+
 
     const dispatch = useAppDispatch();
 
@@ -58,6 +58,7 @@ export default function LoginPage() {
                     phoneNumber: "09167658262",
                 }
             }));
+            router.push("/(main)")
             dispatch(setAuthenticatedUser({ isAuthenticated: true }));
         } else {
             setError("phoneNumber", {
@@ -70,11 +71,13 @@ export default function LoginPage() {
             });
         }
 
-        router.push("/(main)")
 
     };
 
     const expandBottomSheet = () => sheetRef.current?.present();
+    const close = () => sheetRef.current?.close();
+
+    const { isBiometricSupported, handleBiometricsAuthentication } = useBiometrics({ callback: close });
 
     return (
         <View style={[FLEX, styles.container]}>
@@ -145,7 +148,7 @@ export default function LoginPage() {
                             fontFamily="bold"
                             style={{ alignSelf: "center" }}
                         >
-                            Fingerprint Login
+                            Biometrics Login
                         </AppText>
                         <FingerPrintIcon onPress={handleBiometricsAuthentication} style={{ alignSelf: "center" }} />
                         <AppText
@@ -153,7 +156,7 @@ export default function LoginPage() {
                             color="grey--2"
                             fontFamily="regular"
                         >
-                            Kindly verify your fingerprint.
+                            Kindly verify your biometrics.
                         </AppText>
                     </AppBottomSheet>
                 </View>

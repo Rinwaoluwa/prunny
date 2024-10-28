@@ -10,6 +10,7 @@ import { PAY_ACTIONS, PAY_ACTIONS_TYPE } from '@/config/constants';
 import { IconName } from '@/assets/svgs/types';
 import { Banner } from '@/components/Banner';
 import { Href } from 'expo-router';
+import TabIndicator from '@/components/TabIndicator';
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState(0);
@@ -41,7 +42,7 @@ export default function Dashboard() {
                     <BalanceCard />
                     <AddNewWallet onPress={() => console.log('Add New Wallet pressed')} />
                 </ScrollView>
-                {/* <TabIndicator totalTabs={2} activeTab={activeTab} /> */}
+                <TabIndicator activeTab={activeTab} tabCount={2} />
             </View>
             <View style={styles.payAction}>
                 <AppText fontFamily='bold' fontSize={16} color='black' style={styles.title}>Pay Actions</AppText>

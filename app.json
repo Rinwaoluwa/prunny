@@ -9,17 +9,28 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.jpg",
-      "resizeMode": "cover",
+      "resizeMode": "contain",
       "backgroundColor": "#663191"
     },
     "ios": {
-      "supportsTablet": false
+      "newArchEnabled": true,
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Prunny needs to use Face ID / Touch ID to authenticate you"
+      }
     },
     "android": {
+      "newArchEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
+        "resizeMode": "contain",
         "backgroundColor": "#663191"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.rinwaoluwa.prunny"
     },
     "web": {
       "bundler": "metro",
@@ -34,10 +45,25 @@
         {
           "cameraPermission": "Allow Prunny to access your camera"
         }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Prunny to use Face ID."
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f5ca3179-a2fa-42b2-8fd3-a840b1b94525"
+      }
+    },
+    "owner": "rinwaoluwa"
   }
 }

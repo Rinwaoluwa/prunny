@@ -1,28 +1,38 @@
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useEffect, useState } from 'react';
+import { router } from "expo-router";
 
-export function useBiometrics() {
+interface Props {
+    callback: () => void;
+}
+
+export function useBiometrics({ callback }: Props) {
     const [isBiometricSupported, setIsBiometricSupported] = useState(false);
     const handleBiometricsAuthentication = async () => {
-        // Biometrics is available and saved on device
+
         const biometricsAuth = await LocalAuthentication.authenticateAsync({
             promptMessage: "Login to Prunny with biometrics",
-            cancelLabel: "cancel"
+            cancelLabel: "Cancel",
+            disableDeviceFallback: true,
         });
 
-        if(biometricsAuth) setIsBiometricSupported(true);
+
+        if (biometricsAuth.success) {
+            router.push("/(main)");
+            callback();
+        }
     }
 
     useEffect(() => {
 
         const fetchBiometricsData = async () => {
-            const isBiometricsAvailable = await LocalAuthentication.hasHardwareAsync();
-            let supportedBiometrics;
+            const compatible = await LocalAuthentication.hasHardwareAsync();
 
-            if (isBiometricsAvailable) {
-                supportedBiometrics = LocalAuthentication.supportedAuthenticationTypesAsync();
-            } else { setIsBiometricSupported(false); }
+            if (compatible) {
+                setIsBiometricSupported(true);
+            }
 
+            // Biometrics is available and saved on device
             const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
             if (!savedBiometrics) {
                 setIsBiometricSupported(false);
